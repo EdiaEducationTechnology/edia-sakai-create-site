@@ -1,0 +1,15 @@
+<projectDescription>
+  <name>edia-sakai-create-site-tool</name>
+  <comment/>
+  <projects>
+    <project>edia-sakai-create-site-api</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

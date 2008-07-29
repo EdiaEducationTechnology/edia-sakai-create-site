@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://maven.apache.org/POM/4.0.0" 
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>Edia Sakai Create Site API</name>
+	<groupId>nl.edia</groupId>
+	<artifactId>edia-sakai-create-site-api</artifactId>
+
+	<parent>
+		<artifactId>edia-sakai-create-site-base</artifactId>
+		<groupId>nl.edia</groupId>
+		<version>SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<organization>
+		<name>Edia</name>
+		<url>http://www.edia.nl/</url>
+	</organization>
+	<inceptionYear>2008</inceptionYear>
+
+	<!-- you must deploy your model to shared or it will be inaccessible by Hibernate -->
+	<packaging>jar</packaging>
+	<properties>
+		<deploy.target>shared</deploy.target>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.sakaiproject</groupId>
+			<artifactId>sakai-util-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<sourceDirectory>src/java</sourceDirectory>
+	</build>
+
+</project>
