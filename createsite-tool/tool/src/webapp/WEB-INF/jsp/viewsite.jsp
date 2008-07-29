@@ -42,6 +42,11 @@
       ${site.description}
     </p>
   
+    <p class="shorttext">
+      <label><s:message code="page.viewsite.url.label"/></label>
+      <a href="${siteUrl}" title="<s:message code="page.viewsite.url.title"/>" target="_top">${siteUrl}</a>
+    </p>
+  
   </div>	
 </body>
 </html>

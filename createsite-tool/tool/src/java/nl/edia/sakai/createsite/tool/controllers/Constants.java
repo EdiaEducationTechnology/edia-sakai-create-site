@@ -13,6 +13,7 @@ public interface Constants {
 	public static final String TEMPLATE_SITE_ID = "templateSiteId";
 	public static final String TEMPLATE_SITE = "templateSite";
 	public static final String SITE_ID = "siteId";
+	public static final String SITE_URL = "siteUrl";
 	public static final String SITE = "site";
 
 }

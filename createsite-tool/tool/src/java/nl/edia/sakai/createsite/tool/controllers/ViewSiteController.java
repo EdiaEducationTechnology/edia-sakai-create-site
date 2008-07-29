@@ -29,9 +29,12 @@ public class ViewSiteController extends ParameterizableViewController implements
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String siteId = request.getParameter(SITE_ID);
 		Site site =  siteService.getSite(siteId);
+		String siteUrl = request.getScheme() +"://"+ request.getServerName() + 
+			(request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + "/portal/site/" + site.getId();
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put(SITE, site);
+		model.put(SITE_URL, siteUrl);
 		
 		return new ModelAndView(getViewName(), model);
 	}
