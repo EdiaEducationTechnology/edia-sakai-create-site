@@ -1,7 +1,9 @@
 <projectDescription>
   <name>edia-sakai-create-site-impl</name>
   <comment/>
-  <projects/>
+  <projects>
+    <project>edia-sakai-create-site-api</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
