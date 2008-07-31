@@ -68,6 +68,7 @@ import org.sakaiproject.site.api.SiteService.SortType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -91,13 +92,14 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	 * @see nl.edia.sakai.createsite.api.CreateSiteService#listTemplateSites()
 	 */
 	@SuppressWarnings("unchecked")
-	public List<String> listTemplateSites() {
+	public List<String> listTemplateSites(List<String> siteTypes) {
 		List<Site> templateSites = siteService.getSites(
 				SiteService.SelectionType.ANY, null, null, null, SortType.TITLE_ASC, null);
 		List<String> siteIds = new ArrayList<String>(templateSites.size());
 		
 		for (Site site : templateSites) {
-			if (site.getId().startsWith(TEMPLATE_SITE_PREFIX)) {
+			if (site.getId().startsWith(TEMPLATE_SITE_PREFIX) && site.isPublished() &&
+					(siteTypes == null || siteTypes.isEmpty() || siteTypes.contains(site.getType()))) {				
 				siteIds.add(site.getId());
 			}
 		}
