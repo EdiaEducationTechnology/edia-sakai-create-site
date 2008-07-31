@@ -63,9 +63,10 @@ public interface CreateSiteService {
 	
 	/**
 	 * Return a list of sites that are considered template sites.
+	 * @param a list of site types to consider, or null or empty list for all types.
 	 * @return a List of site ids.
 	 */
-	public List<String> listTemplateSites();
+	public List<String> listTemplateSites(List<String> siteTypes);
 	
 	/**
 	 * Create a new site, using the site with the given id as template.
