@@ -5,6 +5,7 @@ package nl.edia.sakai.createsite.tool.controllers;
 
 import nl.edia.sakai.createsite.api.CreateSiteService;
 import nl.edia.sakai.createsite.tool.forms.SelectTemplateForm;
+import nl.edia.sakai.tool.util.SakaiUtils;
 
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,23 +36,41 @@ public class SelectTemplateController extends SimpleFormController implements Co
 		Map<String, Object> model = new HashMap<String, Object>();
 
 		SelectTemplateForm form = (SelectTemplateForm)command;
-		model.put(TEMPLATE_SITE_ID, form.getTemplateSiteId());
+		model.put(PARAM_TEMPLATE_SITE_ID, form.getTemplateSiteId());
 		
 		return new ModelAndView(getSuccessView(), model);
 	}
 
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
-		List<String> templateSiteIds = createSiteService.listTemplateSites();
+		List<String> templateSiteIds = createSiteService.listTemplateSites(getTemplateTypes());
 		List<Site> templateSites = new ArrayList<Site>(templateSiteIds.size());
 		for (String siteId : templateSiteIds) {
 			templateSites.add(siteService.getSite(siteId));
 		}
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(TEMPLATE_SITES, templateSites);
+		model.put(PARAM_TEMPLATE_SITES, templateSites);
 		
 		return model;
+	}
+	
+	/**
+	 * Get the list of template site types configured for this tool, or null if 
+	 * not configured. 
+	 * @return
+	 */
+	private List<String> getTemplateTypes() {
+		List<String> templateTypes = null;
+		String templateTypeIds = SakaiUtils.getConfigValue(CONFIG_TEMPLATE_TYPES);
+		if (templateTypeIds != null && templateTypeIds.trim().length() != 0) {
+			templateTypes = new ArrayList<String>();
+			StringTokenizer tokenizer = new StringTokenizer(templateTypeIds, ",");
+			while (tokenizer.hasMoreTokens()) {
+				templateTypes.add(tokenizer.nextToken().trim());
+			}
+		}
+		return templateTypes;
 	}
 
 	@Override

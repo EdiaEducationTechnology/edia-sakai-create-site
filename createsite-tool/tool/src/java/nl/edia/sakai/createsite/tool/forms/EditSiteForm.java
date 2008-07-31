@@ -12,6 +12,8 @@ public class EditSiteForm {
 	private String title;
 	private String shortDescription;
 	private String description;
+	// "true" or "false" 
+	private String published;
 
 	/**
 	 * 
@@ -42,6 +44,14 @@ public class EditSiteForm {
 
 	public void setDescription(String longDescription) {
 		this.description = longDescription;
+	}
+
+	public String getPublished() {
+		return published;
+	}
+
+	public void setPublished(String published) {
+		this.published = published;
 	}
 
 }

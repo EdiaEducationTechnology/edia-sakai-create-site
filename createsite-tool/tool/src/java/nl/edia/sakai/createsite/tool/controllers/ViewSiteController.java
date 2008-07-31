@@ -27,14 +27,14 @@ public class ViewSiteController extends ParameterizableViewController implements
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String siteId = request.getParameter(SITE_ID);
+		String siteId = request.getParameter(PARAM_SITE_ID);
 		Site site =  siteService.getSite(siteId);
 		String siteUrl = request.getScheme() +"://"+ request.getServerName() + 
 			(request.getServerPort() == 80 ? "" : ":" + request.getServerPort()) + "/portal/site/" + site.getId();
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(SITE, site);
-		model.put(SITE_URL, siteUrl);
+		model.put(PARAM_SITE, site);
+		model.put(PARAM_SITE_URL, siteUrl);
 		
 		return new ModelAndView(getViewName(), model);
 	}

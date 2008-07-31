@@ -36,7 +36,7 @@ public class EditSiteController extends SimpleFormController implements Constant
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
 		EditSiteForm form = (EditSiteForm)command;
-		String templateSiteId = request.getParameter(TEMPLATE_SITE_ID);
+		String templateSiteId = request.getParameter(PARAM_TEMPLATE_SITE_ID);
 		
 		String siteId = createSiteService.createSiteFromTemplate(templateSiteId);
 		
@@ -44,26 +44,27 @@ public class EditSiteController extends SimpleFormController implements Constant
 		site.setTitle(form.getTitle());
 		site.setShortDescription(form.getShortDescription());
 		site.setDescription(form.getDescription());
+		site.setPublished((form.getPublished() != null && form.getPublished().equals("true")));
 		siteService.save(site);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(SITE_ID, siteId);
+		model.put(PARAM_SITE_ID, siteId);
 		return new ModelAndView(getSuccessView(), model);
 	}
 
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
-		String templateSiteId = request.getParameter(TEMPLATE_SITE_ID);
+		String templateSiteId = request.getParameter(PARAM_TEMPLATE_SITE_ID);
 		Site templateSite =  siteService.getSite(templateSiteId);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(TEMPLATE_SITE, templateSite);
+		model.put(PARAM_TEMPLATE_SITE, templateSite);
 		return model;		
 	}
 
 	@Override
 	protected EditSiteForm formBackingObject(HttpServletRequest request) throws Exception {
-		String templateSiteId = request.getParameter(TEMPLATE_SITE_ID);
+		String templateSiteId = request.getParameter(PARAM_TEMPLATE_SITE_ID);
 		Site templateSite =  siteService.getSite(templateSiteId);
 		
 		EditSiteForm form = new EditSiteForm();
