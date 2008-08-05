@@ -5,10 +5,14 @@ package nl.edia.sakai.createsite.tool.controllers;
 
 import nl.edia.sakai.createsite.api.CreateSiteService;
 import nl.edia.sakai.createsite.tool.forms.EditSiteForm;
+import nl.edia.sakai.tool.util.SakaiUtils;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -26,6 +30,7 @@ public class EditSiteController extends SimpleFormController implements Constant
 	
 	private SiteService siteService;
 	private CreateSiteService createSiteService;
+	private static Log log = LogFactory.getLog(EditSiteController.class);
 
 	/**
 	 * 
@@ -34,9 +39,18 @@ public class EditSiteController extends SimpleFormController implements Constant
 	}
 
 	@Override
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+		binder.setRequiredFields(new String[] {PARAM_TEMPLATE_SITE_ID, "title"});
+	}
+
+	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
 		EditSiteForm form = (EditSiteForm)command;
 		String templateSiteId = request.getParameter(PARAM_TEMPLATE_SITE_ID);
+		
+		if (log.isDebugEnabled()) {
+			log.debug("Creating a new site from template site with id '"+templateSiteId+"'.");
+		}
 		
 		String siteId = createSiteService.createSiteFromTemplate(templateSiteId);
 		
@@ -44,7 +58,16 @@ public class EditSiteController extends SimpleFormController implements Constant
 		site.setTitle(form.getTitle());
 		site.setShortDescription(form.getShortDescription());
 		site.setDescription(form.getDescription());
-		site.setPublished((form.getPublished() != null && form.getPublished().equals("true")));
+		site.setPublished("true".equals(form.getPublished()));
+		
+		// current user becomes maintainer
+		if (site.getMaintainRole() != null) {
+			site.addMember(SakaiUtils.getCurrentUserId(), site.getMaintainRole(), true, false);
+		}
+		else {
+			log.error("Can't make the current user maintainer of the new site: no maintainer role defined.");
+		}
+		
 		siteService.save(site);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
