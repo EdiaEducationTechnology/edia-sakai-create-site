@@ -30,14 +30,7 @@
 	
 	<dependencies>
 		
-		<!-- Spring and Hibernate dependencies. -->
-<!-- 
-		<dependency>
-			<groupId>${sakai.hibernate.groupId}</groupId>
-			<artifactId>${sakai.hibernate.artifactId}</artifactId>
-			<version>${sakai.hibernate.version}</version>
-		</dependency>
- -->	
+		<!-- Spring dependencies. -->
 		<dependency>
 			<groupId>${sakai.spring.groupId}</groupId>
 			<artifactId>${sakai.spring.artifactId}</artifactId>
@@ -50,13 +43,7 @@
 			<artifactId>edia-sakai-create-site-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
-<!--		
- 		<dependency>
-			<groupId>nl.edia</groupId>
-			<artifactId>edia-sakai-utils</artifactId>
-			<version>${sakai.version}</version>
-		</dependency>
- -->		
+
 		<!-- Various Sakai dependencies -->
 
 		<dependency>
@@ -64,13 +51,13 @@
 			<artifactId>sakai-authz-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
-<!-- 
+
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-component-api</artifactId>
+			<artifactId>sakai-content-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
- -->
+
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-entity-api</artifactId>
@@ -86,12 +73,6 @@
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-tool-api</artifactId>
-			<version>${sakai.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-content-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
 

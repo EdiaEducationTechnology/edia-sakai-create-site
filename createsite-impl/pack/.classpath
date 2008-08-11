@@ -3,7 +3,7 @@
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="src" path="/edia-sakai-create-site-impl"/>
-  <classpathentry kind="var" path="M2_REPO/nl/edia/edia-sakai-utils/SNAPSHOT/edia-sakai-utils-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-util/SNAPSHOT/sakai-util-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="MAVEN_REPO/edia/jars/edia-sakai-utils-1.0.6.jar"/>
+  <classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
+  <classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-util-2-4-x.jar"/>
 </classpath>

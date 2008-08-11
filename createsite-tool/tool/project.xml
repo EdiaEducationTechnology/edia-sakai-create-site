@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	
+	<pomVersion>3</pomVersion>
+	
+	<extend>../../project.xml</extend>
+	
+	<name>Edia Sakai Create Site Tool</name>
+	<groupId>edia</groupId>
+	<id>edia-sakai-createsite-tool</id>
+	<currentVersion>${sakai.version}</currentVersion>
+	<organization>
+		<name>Edia</name>
+		<url>http://www.edia.nl/</url>
+	</organization>
+	<inceptionYear>2008</inceptionYear>
+
+	<properties>
+		<deploy.type>war</deploy.type>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai</artifactId>
+			<version>${sakai.plugin.version}</version>
+			<type>plugin</type>
+		</dependency>
+
+		<dependency>
+			<groupId>edia</groupId>
+			<artifactId>edia-sakai-utils</artifactId>
+			<version>${edia.sakai.utils.version}</version>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+		<!-- we are running a webapp in tomcat so we need the servlet api -->
+		<dependency>
+			<groupId>servletapi</groupId>
+			<artifactId>servletapi</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+
+		<!-- Spring dependencies. -->
+		<dependency>
+			<groupId>${sakai.spring.groupId}</groupId>
+			<artifactId>${sakai.spring.artifactId}</artifactId>
+			<version>${sakai.spring.version}</version>
+		</dependency>
+		
+		<!-- our tool internal dependencies -->
+		<dependency>
+			<groupId>edia</groupId>
+			<artifactId>edia-sakai-createsite-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+
+		<!-- Various Sakai dependencies -->
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-authz-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-content-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-component-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-entity-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-site-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-tool-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-user-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-util-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-util</artifactId>
+			<version>${sakai.version}</version>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+
+		<!-- Commons JARS put in shared/lib by Sakai -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${sakai.commons.lang.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
+        <!-- in shared/lib -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+	
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+
+
+	
+
+	<build>
+		<sourceDirectory>src/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/bundle</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/java</directory>
+				<includes>
+					<include>**/*.hbm.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+</project>

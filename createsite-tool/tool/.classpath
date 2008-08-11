@@ -1,33 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="src/bundle" including="**/*.properties" excluding="**/*.java"/>
-  <classpathentry kind="src" path="src/java"/>
-  <classpathentry kind="output" path="target/classes"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.1/commons-lang-2.1.jar" sourcepath="M2_REPO/commons-lang/commons-lang/2.1/commons-lang-2.1-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/Documents%20and%20Settings/maarten/.M2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/Documents%20and%20Settings/maarten/.M2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="src" path="/edia-sakai-create-site-api"/>
-  <classpathentry kind="var" path="M2_REPO/nl/edia/edia-sakai-utils/SNAPSHOT/edia-sakai-utils-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar" sourcepath="M2_REPO/jdom/jdom/1.0/jdom-1.0-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/javax/servlet/jstl/1.1.2/jstl-1.1.2.jar" sourcepath="M2_REPO/javax/servlet/jstl/1.1.2/jstl-1.1.2-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-authz-api/SNAPSHOT/sakai-authz-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-component-api/SNAPSHOT/sakai-component-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-content-api/SNAPSHOT/sakai-content-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-entity-api/SNAPSHOT/sakai-entity-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-site-api/SNAPSHOT/sakai-site-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-tool-api/SNAPSHOT/sakai-tool-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-user-api/SNAPSHOT/sakai-user-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-util/SNAPSHOT/sakai-util-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-util-api/SNAPSHOT/sakai-util-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar" sourcepath="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring/2.0.6/spring-2.0.6.jar" sourcepath="M2_REPO/org/springframework/spring/2.0.6/spring-2.0.6-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/taglibs/standard/1.1.2/standard-1.1.2.jar" sourcepath="M2_REPO/taglibs/standard/1.1.2/standard-1.1.2-sources.jar"/>
+	<classpathentry excluding="**/*.java" including="**/*.properties" kind="src" path="src/bundle"/>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/edia-sakai-create-site-api"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-authz-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-component-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-content-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-entity-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-site-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-tool-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-user-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-util-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/sakaiproject/jars/sakai-util-api-2-4-x.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/servletapi/jars/servletapi-2.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/org.springframework/jars/spring-1.2.8.jar" sourcepath="MAVEN_REPO/org/springframework/spring/2.0.6/spring-2.0.6-sources.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/edia/jars/edia-sakai-utils-1.0.6.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
