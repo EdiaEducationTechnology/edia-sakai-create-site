@@ -49,6 +49,8 @@ package nl.edia.sakai.createsite.impl;
 
 import nl.edia.sakai.createsite.api.CreateSiteService;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.authz.api.SecurityAdvisor;
 import org.sakaiproject.authz.cover.SecurityService;
 import org.sakaiproject.content.api.ContentHostingService;
@@ -65,10 +67,10 @@ import org.sakaiproject.site.api.SitePage;
 import org.sakaiproject.site.api.SiteService;
 import org.sakaiproject.site.api.ToolConfiguration;
 import org.sakaiproject.site.api.SiteService.SortType;
+import org.sakaiproject.tool.api.Tool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -81,6 +83,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	
 	private SiteService siteService;
 	private ContentHostingService contentHostingService;
+	private static Log log = LogFactory.getLog(CreateSiteServiceImpl.class);
 
 	/**
 	 * 
@@ -149,19 +152,24 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 				List<ToolConfiguration> pageToolList = page.getTools();
 				if (pageToolList != null) {
 					for (ToolConfiguration toolConfiguration : pageToolList) {
-						String toolId = toolConfiguration.getTool().getId();
-						if (toolId.equalsIgnoreCase("sakai.resources")) {
-							// handle resource tool specially
-							transferCopyEntities(toolId,
-									contentHostingService.getSiteCollection(templateSite.getId()),
-									contentHostingService.getSiteCollection(newSiteId));
-						} else {
-							// other tools
-							transferCopyEntities(toolId, templateSite.getId(), newSiteId);
+						Tool tool = toolConfiguration.getTool();
+						if (tool != null) {
+							String toolId = tool.getId();
+							if (toolId.equalsIgnoreCase("sakai.resources")) {
+								// handle resource tool specially
+								transferCopyEntities(toolId,
+										contentHostingService.getSiteCollection(templateSite.getId()),
+										contentHostingService.getSiteCollection(newSiteId));
+							} else {
+								// other tools
+								transferCopyEntities(toolId, templateSite.getId(), newSiteId);
+							}
+						}
+						else {
+							log.debug("No tool object in ToolConfiguration object '" + toolConfiguration.getTitle() + "'.");
 						}
 					}
 				}
-				
 			}
 		}
 
