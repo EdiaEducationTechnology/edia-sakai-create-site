@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="h" %>
 <%@ taglib uri="http://edia.nl/jsp/tags/edia-sakai-tags" prefix="est"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,7 +10,6 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <link href="css/createsite.css" type="text/css" rel="stylesheet" media="all" />
   <title><s:message code="page.editsite.title"/></title>
-  <script type="text/javascript" src="/library/editor/FCKeditor/fckeditor.js"></script>
   <%=request.getAttribute("sakai.html.head")%>
 </head>
 <body onload="<%= request.getAttribute("sakai.html.body.onload") %>">
@@ -50,9 +48,7 @@
           <label for="${status.expression}" ${status.error ? "style=\"color:red;\"" : ""}>
             <s:message code="${status.expression}.label"/>
           </label>
-          <textarea id="${status.expression}" name="${status.expression}" wrap="virtual" rows="30" cols="80"
-            ><est:escapeHtmlFormattedText>${status.value}</est:escapeHtmlFormattedText></textarea>
-          <h:fckeditor texteareaid="${status.expression}"/>
+          <textarea id="${status.expression}" name="${status.expression}" wrap="virtual" rows="3" cols="30">${status.value}</textarea>
         </p>
       </s:bind>
 
