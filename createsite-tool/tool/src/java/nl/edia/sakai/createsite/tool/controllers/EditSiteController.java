@@ -59,6 +59,17 @@ public class EditSiteController extends SimpleFormController implements Constant
 		site.setShortDescription(form.getShortDescription());
 		site.setDescription(form.getDescription());
 		site.setPublished("true".equals(form.getPublished()));
+		if ("true".equals(form.getJoinable())) {
+			if (site.getJoinerRole() != null && site.getJoinerRole().trim().length() > 0) {
+				site.setJoinable(true);
+			}
+			else {
+				log.warn("User selected joinable, but there's no joiner role. Site not made joinable.");
+			}
+		}
+		else {
+			site.setJoinable(false);
+		}
 		
 		// current user becomes maintainer
 		if (site.getMaintainRole() != null) {

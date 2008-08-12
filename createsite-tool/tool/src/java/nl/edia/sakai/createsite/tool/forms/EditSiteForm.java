@@ -14,6 +14,8 @@ public class EditSiteForm {
 	private String description;
 	// "true" or "false" 
 	private String published;
+	// "true" or "false"
+	private String joinable;
 
 	/**
 	 * 
@@ -52,6 +54,14 @@ public class EditSiteForm {
 
 	public void setPublished(String published) {
 		this.published = published;
+	}
+
+	public String getJoinable() {
+		return joinable;
+	}
+
+	public void setJoinable(String joinable) {
+		this.joinable = joinable;
 	}
 
 }

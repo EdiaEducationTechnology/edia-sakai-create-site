@@ -68,6 +68,18 @@
         </p>
       </s:bind>
       
+      <s:bind path="command.joinable">
+        <p class="shorttext">
+          <label ${status.error ? "style=\"color:red;\"" : ""}>
+            <s:message code="${status.expression}.label"/>
+          </label>
+          <input id="${status.expression}_true" name="${status.expression}" type="radio" value="true" checked="checked"/>
+          <s:message code="${status.expression}_true.label"/>
+          <input id="${status.expression}_false" name="${status.expression}" type="radio" value="false"/>
+          <s:message code="${status.expression}_false.label"/>
+        </p>
+      </s:bind>
+      
       <input type="submit" name="submit" value="<s:message code="page.editsite.submit.label"/>"/> &nbsp;&nbsp;
       <input type="button" name="cancel" value="<s:message code="page.editsite.cancel.label"/>"/>
 
