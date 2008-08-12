@@ -195,6 +195,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	@SuppressWarnings("unchecked")
 	private void transferCopyEntities(String toolId, String fromContext, String toContext) {
 		// offer to all EntityProducers
+		boolean copySucceeded = false;
 		for (Iterator<EntityProducer> i = EntityManager.getEntityProducers().iterator(); i.hasNext();) {
 			EntityProducer ep = i.next();
 			if (ep instanceof EntityTransferrer) {
@@ -203,15 +204,19 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 					// if this producer claims this tool id
 					if (Arrays.asList(et.myToolIds()).contains(toolId)) {
 						et.transferCopyEntities(fromContext, toContext,	null);
-					}
-					else {
-						log.debug("Can't copy content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
+						copySucceeded = true;
 					}
 				} 
 				catch (Throwable t) {
 					log.warn("Excetpion while copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext, t);
 				}
 			}
+		}
+		if (copySucceeded) {
+			log.debug("Succeeded in copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
+		}
+		else {
+			log.debug("Can't copy content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
 		}
 	}
 
