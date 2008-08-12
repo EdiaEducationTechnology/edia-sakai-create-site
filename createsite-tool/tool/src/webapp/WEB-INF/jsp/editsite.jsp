@@ -56,6 +56,8 @@
         </p>
       </s:bind>
 
+      <br/>
+      
       <s:bind path="command.published">
         <p class="shorttext">
           <label ${status.error ? "style=\"color:red;\"" : ""}>
@@ -67,18 +69,32 @@
           <s:message code="${status.expression}_true.label"/>
         </p>
       </s:bind>
-      
+
       <s:bind path="command.joinable">
         <p class="shorttext">
-          <label ${status.error ? "style=\"color:red;\"" : ""}>
-            <s:message code="${status.expression}.label"/>
-          </label>
-          <input id="${status.expression}_true" name="${status.expression}" type="radio" value="true" checked="checked"/>
-          <s:message code="${status.expression}_true.label"/>
-          <input id="${status.expression}_false" name="${status.expression}" type="radio" value="false"/>
-          <s:message code="${status.expression}_false.label"/>
+          <c:if test="${empty templateSite.joinerRole}">
+            <label style="color:gray;" title="<s:message code="${status.expression}.nojoinerrole.alt"/>">
+              <s:message code="${status.expression}.label"/>
+            </label>
+            <input id="${status.expression}_true" name="${status.expression}" type="radio" value="true" disabled="disabled"/>
+            <span style="color:gray;"><s:message code="${status.expression}_true.label"/></span>
+            <input id="${status.expression}_false" name="${status.expression}" type="radio" value="false" checked="checked" disabled="disabled"/>
+            <span style="color:gray;"><s:message code="${status.expression}_false.label"/></span>
+          </c:if>
+
+          <c:if test="${not empty templateSite.joinerRole}">
+            <label>
+              <s:message code="${status.expression}.label"/>
+            </label>
+            <input id="${status.expression}_true" name="${status.expression}" type="radio" value="true" checked="checked"/>
+            <s:message code="${status.expression}_true.label"/>
+            <input id="${status.expression}_false" name="${status.expression}" type="radio" value="false"/>
+            <s:message code="${status.expression}_false.label"/>
+          </c:if>
         </p>
       </s:bind>
+      
+      <br/>
       
       <input type="submit" name="submit" value="<s:message code="page.editsite.submit.label"/>"/> &nbsp;&nbsp;
       <input type="button" name="cancel" value="<s:message code="page.editsite.cancel.label"/>"/>
