@@ -204,6 +204,9 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 					if (Arrays.asList(et.myToolIds()).contains(toolId)) {
 						et.transferCopyEntities(fromContext, toContext,	null);
 					}
+					else {
+						log.debug("Can't copy content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
+					}
 				} 
 				catch (Throwable t) {
 					log.warn("Excetpion while copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext, t);
