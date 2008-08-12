@@ -154,15 +154,20 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 					for (ToolConfiguration toolConfiguration : pageToolList) {
 						Tool tool = toolConfiguration.getTool();
 						if (tool != null) {
-							String toolId = tool.getId();
-							if (toolId.equalsIgnoreCase("sakai.resources")) {
-								// handle resource tool specially
-								transferCopyEntities(toolId,
-										contentHostingService.getSiteCollection(templateSite.getId()),
-										contentHostingService.getSiteCollection(newSiteId));
-							} else {
-								// other tools
-								transferCopyEntities(toolId, templateSite.getId(), newSiteId);
+							try {
+								String toolId = tool.getId();
+								if (toolId.equalsIgnoreCase("sakai.resources")) {
+									// handle resource tool specially
+									transferCopyEntities(toolId,
+											contentHostingService.getSiteCollection(templateSite.getId()),
+											contentHostingService.getSiteCollection(newSiteId));
+								} else {
+									// other tools
+									transferCopyEntities(toolId, templateSite.getId(), newSiteId);
+								}
+							}
+							catch (Exception e) { // we're being very defensive here...
+								log.warn("Excetpion while copying content for tool '"+tool.getId()+"'.", e);
 							}
 						}
 						else {
