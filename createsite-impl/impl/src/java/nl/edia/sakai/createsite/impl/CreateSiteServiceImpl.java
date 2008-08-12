@@ -130,6 +130,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void importToolContent(String newSiteId, Site templateSite, boolean bypassSecurity) {
 		// import tool content
 		
@@ -154,20 +155,15 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 					for (ToolConfiguration toolConfiguration : pageToolList) {
 						Tool tool = toolConfiguration.getTool();
 						if (tool != null) {
-							try {
-								String toolId = tool.getId();
-								if (toolId.equalsIgnoreCase("sakai.resources")) {
-									// handle resource tool specially
-									transferCopyEntities(toolId,
-											contentHostingService.getSiteCollection(templateSite.getId()),
-											contentHostingService.getSiteCollection(newSiteId));
-								} else {
-									// other tools
-									transferCopyEntities(toolId, templateSite.getId(), newSiteId);
-								}
-							}
-							catch (Exception e) { // we're being very defensive here...
-								log.warn("Excetpion while copying content for tool '"+tool.getId()+"'.", e);
+							String toolId = tool.getId();
+							if (toolId.equalsIgnoreCase("sakai.resources")) {
+								// handle resource tool specially
+								transferCopyEntities(toolId,
+										contentHostingService.getSiteCollection(templateSite.getId()),
+										contentHostingService.getSiteCollection(newSiteId));
+							} else {
+								// other tools
+								transferCopyEntities(toolId, templateSite.getId(), newSiteId);
 							}
 						}
 						else {
@@ -196,22 +192,21 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	 * @param toContext
 	 *            The context to import into.
 	 */
-	protected void transferCopyEntities(String toolId, String fromContext, String toContext) {
+	@SuppressWarnings("unchecked")
+	private void transferCopyEntities(String toolId, String fromContext, String toContext) {
 		// offer to all EntityProducers
-		for (Iterator i = EntityManager.getEntityProducers().iterator(); i.hasNext();) {
-			EntityProducer ep = (EntityProducer) i.next();
+		for (Iterator<EntityProducer> i = EntityManager.getEntityProducers().iterator(); i.hasNext();) {
+			EntityProducer ep = i.next();
 			if (ep instanceof EntityTransferrer) {
 				try {
 					EntityTransferrer et = (EntityTransferrer) ep;
-
 					// if this producer claims this tool id
 					if (Arrays.asList(et.myToolIds()).contains(toolId)) {
 						et.transferCopyEntities(fromContext, toContext,	null);
 					}
 				} 
 				catch (Throwable t) {
-					//M_log.warn(this + ".transferCopyEntities: Error encountered while asking EntityTransfer to transferCopyEntities from: "
-					//				+ fromContext + " to: " + toContext, t);
+					log.warn("Excetpion while copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext, t);
 				}
 			}
 		}
