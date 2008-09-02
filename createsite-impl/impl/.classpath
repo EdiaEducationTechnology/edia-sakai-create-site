@@ -1,7 +1,7 @@
 <classpath>
   <classpathentry kind="src" path="src/java"/>
-  <classpathentry kind="src" path="test/java" output="target/test-classes"/>
-  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="src" path="test/java" output="m2-target/test-classes"/>
+  <classpathentry kind="output" path="m2-target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-sources.jar">
     <attributes>
@@ -10,11 +10,11 @@
   </classpathentry>
   <classpathentry kind="src" path="/edia-sakai-create-site-api"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-authz-api/SNAPSHOT/sakai-authz-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-content-api/SNAPSHOT/sakai-content-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-entity-api/SNAPSHOT/sakai-entity-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-site-api/SNAPSHOT/sakai-site-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-tool-api/SNAPSHOT/sakai-tool-api-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-util-api/SNAPSHOT/sakai-util-api-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-authz-api/2.5.2/sakai-authz-api-2.5.2.jar" sourcepath="M2_REPO/org/sakaiproject/sakai-authz-api/2.5.2/sakai-authz-api-2.5.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-content-api/2.5.2/sakai-content-api-2.5.2.jar" sourcepath="M2_REPO/org/sakaiproject/sakai-content-api/2.5.2/sakai-content-api-2.5.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-entity-api/2.5.2/sakai-entity-api-2.5.2.jar" sourcepath="M2_REPO/org/sakaiproject/sakai-entity-api/2.5.2/sakai-entity-api-2.5.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-site-api/2.5.2/sakai-site-api-2.5.2.jar" sourcepath="M2_REPO/org/sakaiproject/sakai-site-api/2.5.2/sakai-site-api-2.5.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-tool-api/2.5.2/sakai-tool-api-2.5.2.jar" sourcepath="M2_REPO/org/sakaiproject/sakai-tool-api/2.5.2/sakai-tool-api-2.5.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-util-api/2.5.2/sakai-util-api-2.5.2.jar" sourcepath="M2_REPO/org/sakaiproject/sakai-util-api/2.5.2/sakai-util-api-2.5.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring/2.0.6/spring-2.0.6.jar" sourcepath="M2_REPO/org/springframework/spring/2.0.6/spring-2.0.6-sources.jar"/>
 </classpath>
