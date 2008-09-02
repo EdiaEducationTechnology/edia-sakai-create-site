@@ -14,8 +14,9 @@
     </attributes>
   </classpathentry>
   <classpathentry kind="src" path="/edia-sakai-create-site-api"/>
-  <classpathentry kind="var" path="M2_REPO/nl/edia/edia-sakai-utils/2.5.0/edia-sakai-utils-2.5.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/nl/edia/edia-sakai-utils/2.5.2/edia-sakai-utils-2.5.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar" sourcepath="M2_REPO/jdom/jdom/1.0/jdom-1.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/servlet/jstl/1.1.2/jstl-1.1.2.jar" sourcepath="M2_REPO/javax/servlet/jstl/1.1.2/jstl-1.1.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-authz-api/2.5.2/sakai-authz-api-2.5.2.jar" sourcepath="M2_REPO/org/sakaiproject/sakai-authz-api/2.5.2/sakai-authz-api-2.5.2-sources.jar"/>
