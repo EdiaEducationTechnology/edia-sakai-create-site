@@ -86,9 +86,9 @@
             <label>
               <s:message code="${status.expression}.label"/>
             </label>
-            <input id="${status.expression}_true" name="${status.expression}" type="radio" value="true" checked="checked"/>
+            <input id="${status.expression}_true" name="${status.expression}" type="radio" value="true"/>
             <s:message code="${status.expression}_true.label"/>
-            <input id="${status.expression}_false" name="${status.expression}" type="radio" value="false"/>
+            <input id="${status.expression}_false" name="${status.expression}" type="radio" value="false" checked="checked"/>
             <s:message code="${status.expression}_false.label"/>
           </c:if>
         </p>
