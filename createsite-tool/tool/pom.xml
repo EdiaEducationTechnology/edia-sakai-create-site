@@ -12,7 +12,7 @@
 	<parent>
 		<artifactId>edia-sakai-create-site-base</artifactId>
 		<groupId>nl.edia</groupId>
-		<version>2.5.2</version>
+		<version>0.1</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
@@ -30,64 +30,50 @@
 		<dependency>
 			<groupId>nl.edia</groupId>
 			<artifactId>edia-sakai-utils</artifactId>
-			<version>${edia.sakai.utils.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>${sakai.servletapi.version}</version>
 		</dependency>
 		
 		<!-- Spring dependencies. -->
 		<dependency>
-			<groupId>${sakai.spring.groupId}</groupId>
-			<artifactId>${sakai.spring.artifactId}</artifactId>
-			<version>${sakai.spring.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
 		</dependency>
 		
 		<!-- our tool internal dependencies -->
 		<dependency>
 			<groupId>nl.edia</groupId>
 			<artifactId>edia-sakai-create-site-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Various Sakai dependencies -->
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-authz-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-content-api</artifactId>
-			<version>${sakai.version}</version>
 		</dependency>
 		
 		<!-- this is needed to use the ServerConfigurationService -->
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-component-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-entity-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-site-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
@@ -100,55 +86,43 @@
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-user-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-util</artifactId>
-			<version>${sakai.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-util-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Commons JARS put in shared/lib by Sakai -->
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>${sakai.commons.lang.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.0.4</version>
 		</dependency>
 
 		<!-- in shared/lib -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.1.2</version>
-			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
-			<version>1.0</version>
 		</dependency>
 
 	</dependencies>
