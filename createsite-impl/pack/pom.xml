@@ -37,11 +37,6 @@
 			<artifactId>edia-sakai-create-site-impl</artifactId>
 		</dependency>
 		
-		<dependency>
-			<groupId>nl.edia</groupId>
-			<artifactId>edia-sakai-utils</artifactId>
-		</dependency>
-		
 	</dependencies>
 	<build>
 		<resources />
