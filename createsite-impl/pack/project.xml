@@ -5,7 +5,7 @@
 	<extend>../../project.xml</extend>
 	<name>Edia Sakai ToolTemplate Pack</name>
 	<groupId>edia</groupId>
-	<id>edia-sakai-eportoflio-pack</id>
+	<id>edia-sakai-create-site-pack</id>
 	<currentVersion>${sakai.version}</currentVersion>
 	<organization>
 		<name>Edia</name>
@@ -26,7 +26,7 @@
 
 		<dependency>
 			<groupId>edia</groupId>
-			<artifactId>edia-sakai-tooltemplate-impl</artifactId>
+			<artifactId>edia-sakai-create-site-impl</artifactId>
 			<version>${sakai.version}</version>
 			<properties>
 				<war.bundle>true</war.bundle>
