@@ -47,10 +47,13 @@
  */
 package nl.edia.sakai.createsite.api;
 
-import org.sakaiproject.exception.IdUnusedException;
-import org.sakaiproject.exception.PermissionException;
-
+import java.util.Collection;
 import java.util.List;
+
+import org.sakaiproject.exception.IdInvalidException;
+import org.sakaiproject.exception.IdUnusedException;
+import org.sakaiproject.exception.IdUsedException;
+import org.sakaiproject.exception.PermissionException;
 
 /**
  * Class CreateSiteService.
@@ -69,12 +72,41 @@ public interface CreateSiteService {
 	public List<String> listTemplateSites(List<String> siteTypes);
 	
 	/**
-	 * Create a new site, using the site with the given id as template.
+	 * Create a new site, using the site with the given id as template. 
+	 * This method makes a deep copy of all the available entities in the template. 
+	 * If you want to copy only a subselection of tools, please use {@link #createSiteFromTemplate(String, Collection)}. 
+	 * This method is equivalent to <code> createSiteFromTemplate(templateSiteId, null) </code>
 	 * @param templateSiteId the id of the site to use as template.
 	 * @return the id of the new site.
 	 * @throws IdUnusedException when the given template site id does not exist.
 	 * @throws PermissionException if the current user does not have the right to create a site.
 	 */
 	public String createSiteFromTemplate(String templateSiteId) throws IdUnusedException, PermissionException;
+	
+	
+	/**
+	 * Create a new site, using the site with the given id as template. 
+	 * This method only copies the entity id's belonging to the given tool id's of the template into the new site.
+	 * @param templateSiteId the id of the template
+	 * @param toolIds if null, everything will be copied, if empty none will be copied, otherwise the selection will be copied.
+	 * @return
+	 * @throws IdUnusedException, if the template does not exist.
+	 * @throws PermissionException, if the user does not have permission
+	 */
+	public String createSiteFromTemplate(String templateSiteId, Collection<String> toolIds) throws IdUnusedException, PermissionException;
 
+	/**
+	 * Create a new site, using the site with the given id as template and with the given tool id.
+	 * This method only copies the entity id's belonging to the given tool id's of the template into the new site.  
+	 * 
+	 * @param siteId the id of the new site to create
+	 * @param templateSiteId the id of the template
+	 * @param toolIds if null, everything will be copied, if empty none will be copied, otherwise the selection will be copied.
+	 * @return
+	 * @throws IdUnusedException if the template does not exist.
+	 * @throws PermissionException if the current user does not have the right to create a site.
+	 * @throws IdUsedException if the given siteId already exists
+	 * @throws IdInvalidException if the given siteId is invalid
+	 */
+    public String createSiteFromTemplate(String siteId, String templateSiteId, Collection<String> toolIds) throws IdUnusedException, PermissionException, IdInvalidException, IdUsedException;
 }
