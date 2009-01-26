@@ -47,6 +47,12 @@
  */
 package nl.edia.sakai.createsite.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import nl.edia.sakai.createsite.api.CreateSiteService;
 
 import org.apache.commons.logging.Log;
@@ -68,11 +74,6 @@ import org.sakaiproject.site.api.SiteService;
 import org.sakaiproject.site.api.ToolConfiguration;
 import org.sakaiproject.site.api.SiteService.SortType;
 import org.sakaiproject.tool.api.Tool;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Class CreateSiteServiceImpl.
@@ -114,24 +115,38 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	 * @see nl.edia.sakai.createsite.api.CreateSiteService#createSiteFromTemplate(java.lang.String)
 	 */
 	public String createSiteFromTemplate(String templateSiteId) throws IdUnusedException, PermissionException {
-		try {
-			Site templateSite = siteService.getSite(templateSiteId);
-			Site site = siteService.addSite(IdManager.createUuid(), templateSite);
-			importToolContent(site.getId(), templateSite, true);
-			return site.getId();
-		}
-		catch (IdUsedException e) {
-			// not possible
-			return null;
-		}
-		catch (IdInvalidException e) {
-			// not possible
-			return null;
-		}
+	    return createSiteFromTemplate(templateSiteId, null);
 	}
 	
+    /** 
+     * @see nl.edia.sakai.createsite.api.CreateSiteService#createSiteFromTemplate(java.lang.String, java.util.Collection)
+     */
+    public String createSiteFromTemplate(String templateSiteId, Collection<String> toolIds) throws IdUnusedException, PermissionException {
+        try {
+            return createSiteFromTemplate(IdManager.createUuid(), templateSiteId, toolIds);
+        }
+        catch (IdUsedException e) {
+            // not possible
+            return null;
+        }
+        catch (IdInvalidException e) {
+            // not possible
+            return null;
+        }
+    }
+    
+    /**
+     * @see nl.edia.sakai.createsite.api.CreateSiteService#createSiteFromTemplate(java.lang.String, java.lang.String, java.util.Collection)
+     */
+    public String createSiteFromTemplate(String newId, String templateSiteId, Collection<String> toolIds) throws IdUnusedException, IdInvalidException, IdUsedException, PermissionException {
+        Site templateSite = siteService.getSite(templateSiteId);
+        Site site = siteService.addSite(newId, templateSite);
+        importToolContent(site.getId(), templateSite, toolIds, true);
+        return site.getId();
+    }
+	
 	@SuppressWarnings("unchecked")
-	private void importToolContent(String newSiteId, Site templateSite, boolean bypassSecurity) {
+	private void importToolContent(String newSiteId, Site templateSite, Collection<String> toolIds, boolean bypassSecurity) {
 		// import tool content
 		
 		if (bypassSecurity)
@@ -156,14 +171,16 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 						Tool tool = toolConfiguration.getTool();
 						if (tool != null) {
 							String toolId = tool.getId();
-							if (toolId.equalsIgnoreCase("sakai.resources")) {
-								// handle resource tool specially
-								transferCopyEntities(toolId,
-										contentHostingService.getSiteCollection(templateSite.getId()),
-										contentHostingService.getSiteCollection(newSiteId));
-							} else {
-								// other tools
-								transferCopyEntities(toolId, templateSite.getId(), newSiteId);
+							if (toolIds == null || toolIds.contains(toolId)) {
+    							if (toolId.equalsIgnoreCase("sakai.resources")) {
+    								// handle resource tool specially
+    								transferCopyEntities(toolId,
+    										contentHostingService.getSiteCollection(templateSite.getId()),
+    										contentHostingService.getSiteCollection(newSiteId));
+    							} else {
+    								// other tools
+    								transferCopyEntities(toolId, templateSite.getId(), newSiteId);
+    							}
 							}
 						}
 						else {
