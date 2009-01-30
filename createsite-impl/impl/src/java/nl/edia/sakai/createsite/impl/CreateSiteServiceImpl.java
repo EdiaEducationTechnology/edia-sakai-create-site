@@ -47,13 +47,9 @@
  */
 package nl.edia.sakai.createsite.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
+import nl.edia.sakai.createsite.api.CopyOptions;
 import nl.edia.sakai.createsite.api.CreateSiteService;
+import nl.edia.sakai.createsite.api.EntityPostProcessor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -75,6 +71,11 @@ import org.sakaiproject.site.api.ToolConfiguration;
 import org.sakaiproject.site.api.SiteService.SortType;
 import org.sakaiproject.tool.api.Tool;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Class CreateSiteServiceImpl.
  * @author Maarten van Hoof
@@ -84,7 +85,8 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	
 	private SiteService siteService;
 	private ContentHostingService contentHostingService;
-	private static Log log = LogFactory.getLog(CreateSiteServiceImpl.class);
+	private static Log LOG = LogFactory.getLog(CreateSiteServiceImpl.class);
+	private List<EntityPostProcessor> entityPostProcessors;
 
 	/**
 	 * 
@@ -97,8 +99,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<String> listTemplateSites(List<String> siteTypes) {
-		List<Site> templateSites = siteService.getSites(
-				SiteService.SelectionType.ANY, null, null, null, SortType.TITLE_ASC, null);
+		List<Site> templateSites = siteService.getSites(SiteService.SelectionType.ANY, null, null, null, SortType.TITLE_ASC, null);
 		List<String> siteIds = new ArrayList<String>(templateSites.size());
 		
 		for (Site site : templateSites) {
@@ -115,15 +116,15 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	 * @see nl.edia.sakai.createsite.api.CreateSiteService#createSiteFromTemplate(java.lang.String)
 	 */
 	public String createSiteFromTemplate(String templateSiteId) throws IdUnusedException, PermissionException {
-	    return createSiteFromTemplate(templateSiteId, null);
+	    return createSiteFromTemplate(templateSiteId, new CopyOptions());
 	}
 	
     /** 
      * @see nl.edia.sakai.createsite.api.CreateSiteService#createSiteFromTemplate(java.lang.String, java.util.Collection)
      */
-    public String createSiteFromTemplate(String templateSiteId, Collection<String> toolIds) throws IdUnusedException, PermissionException {
+    public String createSiteFromTemplate(String templateSiteId, CopyOptions options) throws IdUnusedException, PermissionException {
         try {
-            return createSiteFromTemplate(IdManager.createUuid(), templateSiteId, toolIds);
+            return createSiteFromTemplate(IdManager.createUuid(), templateSiteId, options);
         }
         catch (IdUsedException e) {
             // not possible
@@ -138,15 +139,15 @@ public class CreateSiteServiceImpl implements CreateSiteService {
     /**
      * @see nl.edia.sakai.createsite.api.CreateSiteService#createSiteFromTemplate(java.lang.String, java.lang.String, java.util.Collection)
      */
-    public String createSiteFromTemplate(String newId, String templateSiteId, Collection<String> toolIds) throws IdUnusedException, IdInvalidException, IdUsedException, PermissionException {
+    public String createSiteFromTemplate(String newId, String templateSiteId, CopyOptions options) throws IdUnusedException, IdInvalidException, IdUsedException, PermissionException {
         Site templateSite = siteService.getSite(templateSiteId);
         Site site = siteService.addSite(newId, templateSite);
-        importToolContent(site.getId(), templateSite, toolIds, true);
+        importToolContent(site.getId(), templateSite, options, true);
         return site.getId();
     }
 	
 	@SuppressWarnings("unchecked")
-	private void importToolContent(String newSiteId, Site templateSite, Collection<String> toolIds, boolean bypassSecurity) {
+	private void importToolContent(String newSiteId, Site templateSite, CopyOptions options, boolean bypassSecurity) {
 		// import tool content
 		
 		if (bypassSecurity)
@@ -171,20 +172,22 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 						Tool tool = toolConfiguration.getTool();
 						if (tool != null) {
 							String toolId = tool.getId();
-							if (toolIds == null || toolIds.contains(toolId)) {
+							if (options.getToolIds() == null || options.getToolIds().contains(toolId)) {
     							if (toolId.equalsIgnoreCase("sakai.resources")) {
     								// handle resource tool specially
     								transferCopyEntities(toolId,
     										contentHostingService.getSiteCollection(templateSite.getId()),
-    										contentHostingService.getSiteCollection(newSiteId));
+    										contentHostingService.getSiteCollection(newSiteId), options);
     							} else {
     								// other tools
-    								transferCopyEntities(toolId, templateSite.getId(), newSiteId);
+    								transferCopyEntities(toolId, templateSite.getId(), newSiteId, options);
     							}
+    							// post process these new entities.
+    							postProcessEntities(toolId, templateSite.getId(), newSiteId, options);
 							}
 						}
 						else {
-							log.debug("No tool object in ToolConfiguration object '" + toolConfiguration.getTitle() + "'.");
+							LOG.debug("No tool object in ToolConfiguration object '" + toolConfiguration.getTitle() + "'.");
 						}
 					}
 				}
@@ -197,7 +200,6 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 		}
 	}
 	
-
 	/**
 	 * Transfer a copy of all entities from another context for any entity
 	 * producer that claims this tool id.
@@ -210,7 +212,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	 *            The context to import into.
 	 */
 	@SuppressWarnings("unchecked")
-	private void transferCopyEntities(String toolId, String fromContext, String toContext) {
+	private void transferCopyEntities(String toolId, String fromContext, String toContext, CopyOptions options) {
 		// offer to all EntityProducers
 		boolean copySucceeded = false;
 		for (Iterator<EntityProducer> i = EntityManager.getEntityProducers().iterator(); i.hasNext();) {
@@ -225,16 +227,25 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 					}
 				} 
 				catch (Throwable t) {
-					log.warn("Excetpion while copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext, t);
+					LOG.warn("Excetpion while copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext, t);
 				}
 			}
 		}
 		if (copySucceeded) {
-			log.debug("Succeeded in copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
+			LOG.debug("Succeeded in copying content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
 		}
 		else {
-			log.debug("Can't copy content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
+			LOG.debug("Can't copy content for tool "+toolId+" from: "+ fromContext + " to: " + toContext);
 		}
+	}
+
+	private void postProcessEntities(String toolId, String fromContext, String toContext, CopyOptions options) {
+		for (Iterator<EntityPostProcessor> iter = entityPostProcessors.iterator(); iter.hasNext();) {
+			EntityPostProcessor postProcessor = iter.next();
+			if (Arrays.asList(postProcessor.myToolIds()).contains(toolId)) {
+				postProcessor.postProcessEntity(fromContext, toContext, options);
+			}
+		}		
 	}
 
 	/**
@@ -257,6 +268,14 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 
 	public void setContentHostingService(ContentHostingService contentHostingService) {
 		this.contentHostingService = contentHostingService;
+	}
+
+	public List<EntityPostProcessor> getEntityPostProcessors() {
+		return entityPostProcessors;
+	}
+
+	public void setEntityPostProcessors(List<EntityPostProcessor> entityPostProcessors) {
+		this.entityPostProcessors = entityPostProcessors;
 	}
 
 }

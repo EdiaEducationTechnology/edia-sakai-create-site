@@ -4,6 +4,16 @@
 	<bean name="nl.edia.sakai.createsite.api.CreateSiteService" class="nl.edia.sakai.createsite.impl.CreateSiteServiceImpl">
 		<property name="siteService" ref="org.sakaiproject.site.api.SiteService"/>
 		<property name="contentHostingService" ref="org.sakaiproject.content.api.ContentHostingService"/>
+		
+		<property name="entityPostProcessors">
+		  <list>
+		      <ref bean="assignmentPostProcessor"/>
+		  </list>
+		</property>
+	</bean>
+	
+	<bean name="assignmentPostProcessor" class="nl.edia.sakai.createsite.impl.AssignmentPostProcessor">
+	   <property name="assignmentService" ref="org.sakaiproject.assignment.api.AssignmentService"/>
 	</bean>
 	
 </beans>
