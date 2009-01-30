@@ -83,30 +83,30 @@ public interface CreateSiteService {
 	 */
 	public String createSiteFromTemplate(String templateSiteId) throws IdUnusedException, PermissionException;
 	
-	
 	/**
 	 * Create a new site, using the site with the given id as template. 
-	 * This method only copies the entity id's belonging to the given tool id's of the template into the new site.
+	 * Use the CopyOptions object to tell this CreateSiteService what to copy from the template to the new site and how.
 	 * @param templateSiteId the id of the template
-	 * @param toolIds if null, everything will be copied, if empty none will be copied, otherwise the selection will be copied.
-	 * @return
+	 * @param options what to copy and how to copy it.
+	 * @return the id of the new site.
 	 * @throws IdUnusedException, if the template does not exist.
 	 * @throws PermissionException, if the user does not have permission
+	 * @see CopyOptions
 	 */
-	public String createSiteFromTemplate(String templateSiteId, Collection<String> toolIds) throws IdUnusedException, PermissionException;
+	public String createSiteFromTemplate(String templateSiteId, CopyOptions options) throws IdUnusedException, PermissionException;
 
 	/**
 	 * Create a new site, using the site with the given id as template and with the given tool id.
-	 * This method only copies the entity id's belonging to the given tool id's of the template into the new site.  
-	 * 
+	 * Use the CopyOptions object to tell this CreateSiteService what to copy from the template to the new site and how.
 	 * @param siteId the id of the new site to create
 	 * @param templateSiteId the id of the template
-	 * @param toolIds if null, everything will be copied, if empty none will be copied, otherwise the selection will be copied.
-	 * @return
+	 * @param options what to copy and how to copy it.
+	 * @return the id of the new site.
 	 * @throws IdUnusedException if the template does not exist.
 	 * @throws PermissionException if the current user does not have the right to create a site.
 	 * @throws IdUsedException if the given siteId already exists
 	 * @throws IdInvalidException if the given siteId is invalid
+	 * @see CopyOptions
 	 */
-    public String createSiteFromTemplate(String siteId, String templateSiteId, Collection<String> toolIds) throws IdUnusedException, PermissionException, IdInvalidException, IdUsedException;
+    public String createSiteFromTemplate(String siteId, String templateSiteId, CopyOptions options) throws IdUnusedException, PermissionException, IdInvalidException, IdUsedException;
 }
