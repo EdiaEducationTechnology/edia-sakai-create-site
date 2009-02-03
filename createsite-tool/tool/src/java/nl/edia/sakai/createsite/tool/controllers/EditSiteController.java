@@ -3,6 +3,7 @@
  */
 package nl.edia.sakai.createsite.tool.controllers;
 
+import nl.edia.sakai.createsite.api.CopyOptions;
 import nl.edia.sakai.createsite.api.CreateSiteService;
 import nl.edia.sakai.createsite.tool.forms.EditSiteForm;
 import nl.edia.sakai.tool.util.SakaiUtils;
@@ -52,7 +53,10 @@ public class EditSiteController extends SimpleFormController implements Constant
 			log.debug("Creating a new site from template site with id '"+templateSiteId+"'.");
 		}
 		
-		String siteId = createSiteService.createSiteFromTemplate(templateSiteId);
+		CopyOptions options = new CopyOptions();
+		options.setCopyAssignmentsAsDraft(false);
+		
+		String siteId = createSiteService.createSiteFromTemplate(templateSiteId, options);
 		
 		Site site = siteService.getSite(siteId);
 		site.setTitle(form.getTitle());
