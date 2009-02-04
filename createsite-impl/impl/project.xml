@@ -56,6 +56,12 @@
 		<!-- Various Sakai dependencies -->
 		<dependency>
 			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-assignment-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>sakaiproject</groupId>
 			<artifactId>sakai-authz-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
