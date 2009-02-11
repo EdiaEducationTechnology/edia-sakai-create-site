@@ -12,7 +12,7 @@
 	<parent>
 		<artifactId>edia-sakai-create-site-base</artifactId>
 		<groupId>nl.edia</groupId>
-		<version>0.1</version>
+		<version>1.0.0</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 

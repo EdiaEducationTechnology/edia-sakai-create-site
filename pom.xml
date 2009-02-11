@@ -8,11 +8,11 @@
 	<name>Edia Sakai Create Site Base</name>
 	<groupId>nl.edia</groupId>
 	<artifactId>edia-sakai-create-site-base</artifactId>
-	<version>0.1</version>
+	<version>1.0.0</version>
 	<parent>
 		<artifactId>master</artifactId>
 		<groupId>org.sakaiproject</groupId>
-		<version>M2</version>
+		<version>2.5.3</version>
 		<relativePath>../master/pom.xml</relativePath>
 	</parent>
 
@@ -31,13 +31,13 @@
 			<dependency>
 				<groupId>nl.edia</groupId>
 				<artifactId>edia-sakai-create-site-api</artifactId>
-				<version>0.1</version>
+				<version>1.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>nl.edia</groupId>
 				<artifactId>edia-sakai-create-site-impl</artifactId>
-				<version>0.1</version>
+				<version>1.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>nl.edia</groupId>
@@ -47,22 +47,22 @@
 			<dependency>
 				<groupId>org.sakaiproject</groupId>
 				<artifactId>sakai-util</artifactId>
-				<version>M2</version>
+				<version>2.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sakaiproject</groupId>
 				<artifactId>sakai-user-util</artifactId>
-				<version>M2</version>
+				<version>2.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sakaiproject</groupId>
 				<artifactId>sakai-util</artifactId>
-				<version>M2</version>
+				<version>2.5.3</version>
 			</dependency>			
 			<dependency>
 				<groupId>org.sakaiproject</groupId>
 				<artifactId>sakai-wicket</artifactId>
-				<version>M2</version>
+				<version>2.5.3</version>
 			</dependency>					
 			<dependency>
 				<groupId>taglibs</groupId>
