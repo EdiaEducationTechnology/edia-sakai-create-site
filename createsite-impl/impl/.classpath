@@ -17,6 +17,6 @@
 	<classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-tool-api/M2/sakai-tool-api-M2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-util-api/M2/sakai-util-api-M2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring/2.0.6/spring-2.0.6.jar" sourcepath="M2_REPO/org/springframework/spring/2.0.6/spring-2.0.6-sources.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/assignment-api"/>
+	<classpathentry kind="var" path="M2_REPO/org/sakaiproject/sakai-assignment-api/M2/sakai-assignment-api-M2.jar"/>
 	<classpathentry kind="output" path="m2-target/classes"/>
 </classpath>
