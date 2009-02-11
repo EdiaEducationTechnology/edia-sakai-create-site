@@ -15,8 +15,8 @@ import java.util.Collection;
  */
 public class CopyOptions {
 	
-	private Collection<String> toolsToCopy;
-	private Collection<String> toolsToOmit;
+	private Collection<String> contentToCopy;
+	private Collection<String> contentToOmit;
 	private boolean copyAssignmentsAsDraft = true;
 	private boolean copyUnpublishedAssesments = true;
 	
@@ -29,53 +29,53 @@ public class CopyOptions {
 
 	/**
 	 * Create a CopyOptions that copies content from the 
-	 * tools with the given ids.
+	 * tools with the given id's.
 	 */
 	public CopyOptions(Collection<String> toolIds) {
 		super();
-		toolsToCopy = toolIds;
+		contentToCopy = toolIds;
 	}
 
 	/**
-	 * The content of tools with these id's is to be copied.
+	 * Returns which content to copy as a set of id's of tools that have their content copied.
 	 * If no tool id's are given all tool content that can be copied
-	 * is copied, except the ones in toolsToOmit. 
+	 * is copied, except the ones in contentToOmit. 
 	 * If this collection is empty, nothing is copied at all.
 	 * @return the tools to copy.
 	 */
-	public Collection<String> getToolsToCopy() {
-		return toolsToCopy;
+	public Collection<String> getContentToCopy() {
+		return contentToCopy;
 	}
 	
 	/**
-	 * The content of tools with these id's is to be copied.
-	 * Leave null to copy everything except toolsToOmit, 
+	 * Sets which content to copy as a set of id's of tools that have their content copied.
+	 * Leave null to copy everything except contentToOmit, 
 	 * pass an empty collection to copy nothing.
 	 * @param toolIds
 	 */
-	public void setToolsToCopy(Collection<String> toolIds) {
-		this.toolsToCopy = toolIds;
+	public void setContentToCopy(Collection<String> toolIds) {
+		this.contentToCopy = toolIds;
 	}
 	
 	/**
-	 * The content of the tools with these id's is not to be copied.
+	 * Returns which content is NOT copied as a set of id's of tools that are omitted in the copy process.
 	 * An empty set or null both result in all content being copied, 
-	 * unless toolsToCopy is not null.
+	 * unless contentToCopy is not null.
 	 * @see #getToolsToCopy(Collection)
 	 */
-	public Collection<String> getToolsToOmit() {
-		return toolsToOmit;
+	public Collection<String> getContentToOmit() {
+		return contentToOmit;
 	}
 
 	/**
-	 * The content of the tools with the given id's is not to be copied.
+	 * Sets which content NOT to copy as a set of id's of tools that are omitted in the copy process.
 	 * An empty set or null both result in all content being copied, 
-	 * unless toolsToCopy is not null.
+	 * unless contentToCopy is not null.
 	 * @param toolIds
-	 * @see #setToolsToCopy(Collection)
+	 * @see #setContentToCopy(Collection)
 	 */
-	public void setToolsToOmit(Collection<String> toolIds) {
-		this.toolsToOmit = toolIds;
+	public void setContentToOmit(Collection<String> toolIds) {
+		this.contentToOmit = toolIds;
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class CopyOptions {
 	
 	/**
 	 * @deprecated
-	 * Use {@link #getToolsToCopy()} in stead.
+	 * Use {@link #getContentToCopy()} in stead.
 	 * The content of tools with these id's is to be copied.
 	 * If no tool id's are given all tool content that can be copied
 	 * is copied, except the ones in toolsToOmit. 
@@ -120,19 +120,19 @@ public class CopyOptions {
 	 * @return the tools to copy.
 	 */
 	public Collection<String> getToolIds() {
-		return toolsToCopy;
+		return contentToCopy;
 	}
 	
 	/**
 	 * @deprecated
-	 * Use {@link #setToolsToCopy(Collection)} in stead.
+	 * Use {@link #setContentToCopy(Collection)} in stead.
 	 * The content of tools with these id's is to be copied.
 	 * Leave null to copy everything except toolsToOmit, 
 	 * pass an empty collection to copy nothing.
 	 * @param toolIds
 	 */
 	public void setToolIds(Collection<String> toolIds) {
-		this.toolsToCopy = toolIds;
+		this.contentToCopy = toolIds;
 	}
 	
 
