@@ -172,8 +172,8 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 						Tool tool = toolConfiguration.getTool();
 						if (tool != null) {
 							String toolId = tool.getId();
-							if ((options.getToolsToCopy() == null || options.getToolsToCopy().contains(toolId)) &&
-									!(options.getToolsToOmit() != null && options.getToolsToOmit().contains(toolId)) ) {
+							if ((options.getContentToCopy() == null || options.getContentToCopy().contains(toolId)) &&
+									!(options.getContentToOmit() != null && options.getContentToOmit().contains(toolId)) ) {
     							if (toolId.equalsIgnoreCase("sakai.resources")) {
     								// handle resource tool specially
     								transferCopyEntities(toolId,
