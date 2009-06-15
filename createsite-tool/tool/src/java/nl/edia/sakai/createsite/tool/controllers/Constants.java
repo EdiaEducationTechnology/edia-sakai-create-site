@@ -17,5 +17,6 @@ public interface Constants {
 	public static final String PARAM_SITE = "site";
 	
 	public static final String CONFIG_TEMPLATE_TYPES = "templateTypes";
+	public static final String CONFIG_TEMPLATE_IDS = "templateIds";
 
 }

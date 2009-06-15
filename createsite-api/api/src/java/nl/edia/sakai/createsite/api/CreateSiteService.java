@@ -66,6 +66,10 @@ public interface CreateSiteService {
 	
 	/**
 	 * Return a list of sites that are considered template sites.
+	 * The tool can either be configured with a set of template site ids
+	 * or with a set of template site types. In the latter case, this method
+	 * is used to retrieve the actual template site ids.
+	 *  
 	 * @param a list of site types to consider, or null or empty list for all types.
 	 * @return a List of site ids.
 	 */
