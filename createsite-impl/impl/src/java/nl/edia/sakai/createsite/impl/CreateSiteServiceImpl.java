@@ -146,7 +146,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 			SecurityService.pushAdvisor(new SecurityAdvisor() {
                 public SecurityAdvice isAllowed(String userId, String function, String reference)
                 {
-                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.equals(newId)) {
+                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.equals("/site/" + newId)) {
                     	return SecurityAdvice.ALLOWED;
                     }
                     return SecurityAdvice.NOT_ALLOWED;
