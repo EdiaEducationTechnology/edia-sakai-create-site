@@ -53,6 +53,7 @@ import nl.edia.sakai.createsite.api.EntityPostProcessor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.authz.api.SecurityAdvisor;
 import org.sakaiproject.authz.cover.SecurityService;
 import org.sakaiproject.content.api.ContentHostingService;
@@ -146,7 +147,10 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 			SecurityService.pushAdvisor(new SecurityAdvisor() {
                 public SecurityAdvice isAllowed(String userId, String function, String reference)
                 {
-                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.equals("/site/" + newId)) {
+                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.endsWith(newId)) {
+                    	return SecurityAdvice.ALLOWED;
+                    }
+                    if (function.equals(AuthzGroupService.SECURE_ADD_AUTHZ_GROUP) && reference.endsWith(newId)) {
                     	return SecurityAdvice.ALLOWED;
                     }
                     return SecurityAdvice.NOT_ALLOWED;
