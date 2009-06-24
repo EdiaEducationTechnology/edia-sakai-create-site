@@ -8,7 +8,7 @@
 	<name>Edia Sakai Create Site Base</name>
 	<groupId>nl.edia</groupId>
 	<artifactId>edia-sakai-create-site-base</artifactId>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 	<parent>
 		<artifactId>master</artifactId>
 		<groupId>org.sakaiproject</groupId>
@@ -31,13 +31,13 @@
 			<dependency>
 				<groupId>nl.edia</groupId>
 				<artifactId>edia-sakai-create-site-api</artifactId>
-				<version>1.1.1</version>
+				<version>1.1.2</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>nl.edia</groupId>
 				<artifactId>edia-sakai-create-site-impl</artifactId>
-				<version>1.1.1</version>
+				<version>1.1.2</version>
 			</dependency>
 			<dependency>
 				<groupId>nl.edia</groupId>
