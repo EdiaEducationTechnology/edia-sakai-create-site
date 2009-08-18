@@ -159,7 +159,11 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 			
 	    	Site templateSite = siteService.getSite(templateSiteId);
 			Site site = siteService.addSite(newId, templateSite);
+			if (options.getNewSiteTitle() != null) {
+				site.setTitle(options.getNewSiteTitle());
+			}
 			copyToolContent(site.getId(), templateSite, options, true);
+			siteService.save(site);
 			return site.getId();
 			
 		}
@@ -201,11 +205,13 @@ public class CreateSiteServiceImpl implements CreateSiteService {
     								transferCopyEntities(toolId,
     										contentHostingService.getSiteCollection(templateSite.getId()),
     										contentHostingService.getSiteCollection(newSiteId), options);
-    							} else if (toolId.equalsIgnoreCase("sakai.iframe")) {
+    							} 
+    							else if (toolId.equalsIgnoreCase("sakai.iframe")) {
     								// do nothing. transferCopyEntities will end up adding new pages for each
     								// web content tool, but the web content pages have been correctly copied
     								// in siteService.addSite.
-    							} else {
+    							} 
+    							else {
     								// other tools
     								transferCopyEntities(toolId, templateSite.getId(), newSiteId, options);
     							}

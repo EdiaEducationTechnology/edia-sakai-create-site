@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,13 +56,13 @@ public class EditSiteController extends SimpleFormController implements Constant
 		
 		// TODO makes this configurable by the end user.
 		CopyOptions options = new CopyOptions();
+		options.setNewSiteTitle(form.getTitle());
 		options.setCopyAssignmentsAsDraft(false);
 		options.setContentToOmit(Arrays.asList(new String[] {"sakai.announcements", "sakai.schedule"}));
 		
 		String siteId = createSiteService.createSiteFromTemplate(templateSiteId, options);
-		
+
 		Site site = siteService.getSite(siteId);
-		site.setTitle(form.getTitle());
 		site.setShortDescription(form.getShortDescription());
 		site.setDescription(form.getDescription());
 		site.setPublished("true".equals(form.getPublished()));
@@ -117,22 +116,12 @@ public class EditSiteController extends SimpleFormController implements Constant
 		return form;
 	}
 
-	public CreateSiteService getCreateSiteService() {
-		return createSiteService;
-	}
-
 	public void setCreateSiteService(CreateSiteService createSiteService) {
 		this.createSiteService = createSiteService;
-	}
-
-	public SiteService getSiteService() {
-		return siteService;
 	}
 
 	public void setSiteService(SiteService siteService) {
 		this.siteService = siteService;
 	}
-	
-	
 
 }
