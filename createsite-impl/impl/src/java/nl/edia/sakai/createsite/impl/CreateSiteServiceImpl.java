@@ -139,11 +139,29 @@ public class CreateSiteServiceImpl implements CreateSiteService {
     /**
      * @see nl.edia.sakai.createsite.api.CreateSiteService#createSiteFromTemplate(java.lang.String, java.lang.String, java.util.Collection)
      */
-    public String createSiteFromTemplate(String newId, String templateSiteId, CopyOptions options) throws IdUnusedException, IdInvalidException, IdUsedException, PermissionException {
+    public String createSiteFromTemplate(final String newId, String templateSiteId, CopyOptions options) throws IdUnusedException, IdInvalidException, IdUsedException, PermissionException {
+		try {
+			// Users of this tool can add sites, even if they do not have the proper permissions.
+			// TODO maybe create a privilege for using this tool?
+			SecurityService.pushAdvisor(new SecurityAdvisor() {
+                public SecurityAdvice isAllowed(String userId, String function, String reference)
+                {
+                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.equals(newId)) {
+                    	return SecurityAdvice.ALLOWED;
+                    }
+                    return SecurityAdvice.NOT_ALLOWED;
+                }
+            });
+			
         Site templateSite = siteService.getSite(templateSiteId);
         Site site = siteService.addSite(newId, templateSite);
         copyToolContent(site.getId(), templateSite, options, true);
         return site.getId();
+			
+    }
+		finally {
+			SecurityService.popAdvisor();
+		}
     }
 	
 	@SuppressWarnings("unchecked")
