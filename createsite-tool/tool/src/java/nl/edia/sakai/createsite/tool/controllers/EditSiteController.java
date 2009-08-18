@@ -17,8 +17,10 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,8 +55,10 @@ public class EditSiteController extends SimpleFormController implements Constant
 			log.debug("Creating a new site from template site with id '"+templateSiteId+"'.");
 		}
 		
+		// TODO makes this configurable by the end user.
 		CopyOptions options = new CopyOptions();
 		options.setCopyAssignmentsAsDraft(false);
+		options.setContentToOmit(Arrays.asList(new String[] {"sakai.announcements", "sakai.schedule"}));
 		
 		String siteId = createSiteService.createSiteFromTemplate(templateSiteId, options);
 		
