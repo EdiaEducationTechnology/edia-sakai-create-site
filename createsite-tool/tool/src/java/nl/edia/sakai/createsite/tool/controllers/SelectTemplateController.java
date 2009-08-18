@@ -43,7 +43,13 @@ public class SelectTemplateController extends SimpleFormController implements Co
 
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
-		List<String> templateSiteIds = createSiteService.listTemplateSites(getTemplateTypes());
+		// if templates are defined, use these.
+		List<String> templateSiteIds = getTemplateIds();
+		if (templateSiteIds == null) {
+			// if not, ask the service for templates.
+			templateSiteIds = createSiteService.listTemplateSites(getTemplateTypes());
+		}
+		
 		List<Site> templateSites = new ArrayList<Site>(templateSiteIds.size());
 		for (String siteId : templateSiteIds) {
 			templateSites.add(siteService.getSite(siteId));
@@ -53,6 +59,23 @@ public class SelectTemplateController extends SimpleFormController implements Co
 		model.put(PARAM_TEMPLATE_SITES, templateSites);
 		
 		return model;
+	}
+	
+	/**
+	 * Get the list of template sites configured for this tool, or null if not configured.
+	 * @return the ids of sites used as templates.
+	 */
+	private List<String> getTemplateIds() {
+		List<String> templateIds = null;
+		String templateTypeIds = SakaiUtils.getConfigValue(CONFIG_TEMPLATE_IDS);
+		if (templateTypeIds != null && templateTypeIds.trim().length() != 0) {
+			templateIds = new ArrayList<String>();
+			StringTokenizer tokenizer = new StringTokenizer(templateTypeIds, ",");
+			while (tokenizer.hasMoreTokens()) {
+				templateIds.add(tokenizer.nextToken().trim());
+			}
+		}
+		return templateIds;
 	}
 	
 	/**
