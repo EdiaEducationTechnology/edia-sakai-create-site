@@ -4,49 +4,78 @@ import java.util.Collection;
 
 /**
  * CopyOptions is an object that can be passed to the CreateSiteService to let that 
- * class know how to copy existing content from the template to the new site. 
+ * class know how to copy existing content from the template to the new site.
+ * 
+ * Which tools have their content copied is decided by toolsToCopy and toolsToOmit.
+ * Caller of this class can choose which to use: use toolsToCopy to explicitly
+ * set the id's of the tools that have their content copied, use toolsToOmit to 
+ * copy everything but omit the content of the given tools.
  * 
  * @author Maarten van Hoof
  */
 public class CopyOptions {
 	
-	private Collection<String> toolIds;
+	private Collection<String> toolsToCopy;
+	private Collection<String> toolsToOmit;
 	private boolean copyAssignmentsAsDraft = true;
 	private boolean copyUnpublishedAssesments = true;
 	
 	/**
-	 * Create a CopyOptions object that has null toolIds.
+	 * Create a CopyOptions object.
 	 */
 	public CopyOptions() {
 		super();
 	}
 
 	/**
-	 * Create a CopyOptions object for copying the given tool ids.
-	 * @param toolIds
+	 * Create a CopyOptions that copies content from the 
+	 * tools with the given ids.
 	 */
 	public CopyOptions(Collection<String> toolIds) {
 		super();
-		this.toolIds = toolIds;
+		toolsToCopy = toolIds;
 	}
 
 	/**
-	 * Returns a collection of Id's of tools to copy.
-	 * If no tool ids are given (when this method returns null) all tool content that can be copied
-	 * is copied. If this collection is empty, nothing is copied at all.
+	 * The content of tools with these id's is to be copied.
+	 * If no tool id's are given all tool content that can be copied
+	 * is copied, except the ones in toolsToOmit. 
+	 * If this collection is empty, nothing is copied at all.
 	 * @return the tools to copy.
 	 */
-	public Collection<String> getToolIds() {
-		return toolIds;
+	public Collection<String> getToolsToCopy() {
+		return toolsToCopy;
 	}
 	
 	/**
-	 * Set the id's of the tools to copy.
-	 * Leave null to copy everything, pass an empty collection to copy nothing.
+	 * The content of tools with these id's is to be copied.
+	 * Leave null to copy everything except toolsToOmit, 
+	 * pass an empty collection to copy nothing.
 	 * @param toolIds
 	 */
-	public void setToolIds(Collection<String> toolIds) {
-		this.toolIds = toolIds;
+	public void setToolsToCopy(Collection<String> toolIds) {
+		this.toolsToCopy = toolIds;
+	}
+	
+	/**
+	 * The content of the tools with these id's is not to be copied.
+	 * An empty set or null both result in all content being copied, 
+	 * unless toolsToCopy is not null.
+	 * @see #getToolsToCopy(Collection)
+	 */
+	public Collection<String> getToolsToOmit() {
+		return toolsToOmit;
+	}
+
+	/**
+	 * The content of the tools with the given id's is not to be copied.
+	 * An empty set or null both result in all content being copied, 
+	 * unless toolsToCopy is not null.
+	 * @param toolIds
+	 * @see #setToolsToCopy(Collection)
+	 */
+	public void setToolsToOmit(Collection<String> toolIds) {
+		this.toolsToOmit = toolIds;
 	}
 	
 	/**
@@ -79,6 +108,31 @@ public class CopyOptions {
 	 */
 	public void setCopyUnpublishedAssesments(boolean copyUnpublishedAssesments) {
 		this.copyUnpublishedAssesments = copyUnpublishedAssesments;
+	}
+	
+	/**
+	 * @deprecated
+	 * Use {@link #getToolsToCopy()} in stead.
+	 * The content of tools with these id's is to be copied.
+	 * If no tool id's are given all tool content that can be copied
+	 * is copied, except the ones in toolsToOmit. 
+	 * If this collection is empty, nothing is copied at all.
+	 * @return the tools to copy.
+	 */
+	public Collection<String> getToolIds() {
+		return toolsToCopy;
+	}
+	
+	/**
+	 * @deprecated
+	 * Use {@link #setToolsToCopy(Collection)} in stead.
+	 * The content of tools with these id's is to be copied.
+	 * Leave null to copy everything except toolsToOmit, 
+	 * pass an empty collection to copy nothing.
+	 * @param toolIds
+	 */
+	public void setToolIds(Collection<String> toolIds) {
+		this.toolsToCopy = toolIds;
 	}
 	
 

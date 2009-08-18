@@ -142,12 +142,12 @@ public class CreateSiteServiceImpl implements CreateSiteService {
     public String createSiteFromTemplate(String newId, String templateSiteId, CopyOptions options) throws IdUnusedException, IdInvalidException, IdUsedException, PermissionException {
         Site templateSite = siteService.getSite(templateSiteId);
         Site site = siteService.addSite(newId, templateSite);
-        importToolContent(site.getId(), templateSite, options, true);
+        copyToolContent(site.getId(), templateSite, options, true);
         return site.getId();
     }
 	
 	@SuppressWarnings("unchecked")
-	private void importToolContent(String newSiteId, Site templateSite, CopyOptions options, boolean bypassSecurity) {
+	private void copyToolContent(String newSiteId, Site templateSite, CopyOptions options, boolean bypassSecurity) {
 		// import tool content
 		
 		if (bypassSecurity)
@@ -172,12 +172,17 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 						Tool tool = toolConfiguration.getTool();
 						if (tool != null) {
 							String toolId = tool.getId();
-							if (options.getToolIds() == null || options.getToolIds().contains(toolId)) {
+							if ((options.getToolsToCopy() == null || options.getToolsToCopy().contains(toolId)) &&
+									!(options.getToolsToOmit() != null && options.getToolsToOmit().contains(toolId)) ) {
     							if (toolId.equalsIgnoreCase("sakai.resources")) {
     								// handle resource tool specially
     								transferCopyEntities(toolId,
     										contentHostingService.getSiteCollection(templateSite.getId()),
     										contentHostingService.getSiteCollection(newSiteId), options);
+    							} else if (toolId.equalsIgnoreCase("sakai.iframe")) {
+    								// do nothing. transferCopyEntities will end up adding new pages for each
+    								// web content tool, but the web content pages have been correctly copied
+    								// in siteService.addSite.
     							} else {
     								// other tools
     								transferCopyEntities(toolId, templateSite.getId(), newSiteId, options);
