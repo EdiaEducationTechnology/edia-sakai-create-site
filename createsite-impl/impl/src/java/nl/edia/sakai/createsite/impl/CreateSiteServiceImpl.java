@@ -53,6 +53,7 @@ import nl.edia.sakai.createsite.api.EntityPostProcessor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.authz.api.SecurityAdvisor;
 import org.sakaiproject.authz.cover.SecurityService;
 import org.sakaiproject.content.api.ContentHostingService;
@@ -146,19 +147,26 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 			SecurityService.pushAdvisor(new SecurityAdvisor() {
                 public SecurityAdvice isAllowed(String userId, String function, String reference)
                 {
-                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.equals(newId)) {
+                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.endsWith(newId)) {
+                    	return SecurityAdvice.ALLOWED;
+                    }
+                    if (function.equals(AuthzGroupService.SECURE_ADD_AUTHZ_GROUP) && reference.endsWith(newId)) {
                     	return SecurityAdvice.ALLOWED;
                     }
                     return SecurityAdvice.NOT_ALLOWED;
                 }
             });
 			
-        Site templateSite = siteService.getSite(templateSiteId);
-        Site site = siteService.addSite(newId, templateSite);
-        copyToolContent(site.getId(), templateSite, options, true);
-        return site.getId();
+	    	Site templateSite = siteService.getSite(templateSiteId);
+			Site site = siteService.addSite(newId, templateSite);
+			if (options.getNewSiteTitle() != null) {
+				site.setTitle(options.getNewSiteTitle());
+			}
+			copyToolContent(site.getId(), templateSite, options, true);
+			siteService.save(site);
+			return site.getId();
 			
-    }
+		}
 		finally {
 			SecurityService.popAdvisor();
 		}
@@ -197,11 +205,13 @@ public class CreateSiteServiceImpl implements CreateSiteService {
     								transferCopyEntities(toolId,
     										contentHostingService.getSiteCollection(templateSite.getId()),
     										contentHostingService.getSiteCollection(newSiteId), options);
-    							} else if (toolId.equalsIgnoreCase("sakai.iframe")) {
+    							} 
+    							else if (toolId.equalsIgnoreCase("sakai.iframe")) {
     								// do nothing. transferCopyEntities will end up adding new pages for each
     								// web content tool, but the web content pages have been correctly copied
     								// in siteService.addSite.
-    							} else {
+    							} 
+    							else {
     								// other tools
     								transferCopyEntities(toolId, templateSite.getId(), newSiteId, options);
     							}

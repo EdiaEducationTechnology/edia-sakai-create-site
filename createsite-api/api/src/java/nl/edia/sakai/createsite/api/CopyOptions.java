@@ -15,6 +15,7 @@ import java.util.Collection;
  */
 public class CopyOptions {
 	
+	private String newSiteTitle;
 	private Collection<String> contentToCopy;
 	private Collection<String> contentToOmit;
 	private boolean copyAssignmentsAsDraft = true;
@@ -133,6 +134,14 @@ public class CopyOptions {
 	 */
 	public void setToolIds(Collection<String> toolIds) {
 		this.contentToCopy = toolIds;
+	}
+
+	public String getNewSiteTitle() {
+		return newSiteTitle;
+	}
+
+	public void setNewSiteTitle(String newSiteTitle) {
+		this.newSiteTitle = newSiteTitle;
 	}
 	
 

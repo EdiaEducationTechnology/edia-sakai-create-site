@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project>
-	
 	<pomVersion>3</pomVersion>
-	
 	<extend>../../project.xml</extend>
-	
-	<name>Edia Sakai Create Site Impl</name>
+	<name>Edia Sakai ToolTemplate Impl</name>
 	<groupId>edia</groupId>
-	<id>edia-sakai-createsite-impl</id>
+	<id>edia-sakai-tooltemplate-impl</id>
 	<currentVersion>${sakai.version}</currentVersion>
-	
 	<organization>
 		<name>Edia</name>
 		<url>http://www.edia.nl/</url>
 	</organization>
-	
 	<inceptionYear>2008</inceptionYear>
 
 	<!-- logic impl should be deployed as a jar and included in the pack, not to shared -->
@@ -31,13 +27,13 @@
 			<artifactId>${sakai.hibernate.artifactId}</artifactId>
 			<version>${sakai.hibernate.version}</version>
 		</dependency>
-		 -->
 		
 		<dependency>
 			<groupId>${sakai.spring.groupId}</groupId>
 			<artifactId>${sakai.spring.artifactId}</artifactId>
 			<version>${sakai.spring.version}</version>
 		</dependency>
+		 -->
 		 
 		<!-- Edia utils package -->
 		<dependency>
@@ -49,26 +45,14 @@
 		<!-- our tool internal dependencies -->
 		<dependency>
 			<groupId>edia</groupId>
-			<artifactId>edia-sakai-createsite-api</artifactId>
+			<artifactId>edia-sakai-tooltemplate-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
 
 		<!-- Various Sakai dependencies -->
 		<dependency>
 			<groupId>sakaiproject</groupId>
-			<artifactId>sakai-assignment-api</artifactId>
-			<version>${sakai.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>sakaiproject</groupId>
 			<artifactId>sakai-authz-api</artifactId>
-			<version>${sakai.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>sakaiproject</groupId>
-			<artifactId>sakai-content-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
 
@@ -80,41 +64,49 @@
 
 		<dependency>
 			<groupId>sakaiproject</groupId>
+			<artifactId>sakai-component-api</artifactId>
+			<version>${sakai.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>sakaiproject</groupId>
 			<artifactId>sakai-site-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>sakaiproject</groupId>
-			<artifactId>sakai-tool-api</artifactId>
-			<version>${sakai.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>sakaiproject</groupId>
 			<artifactId>sakai-util-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
-		
 
+  		<!-- Commons JARS put in shared/lib by Sakai -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.0.4</version>
 		</dependency>
 
-
+		<!-- JDOM -->
+		<!-- 
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+		</dependency>
+		 -->
 	</dependencies>
 
 	<build>
 		<sourceDirectory>src/java</sourceDirectory>
+
 		<unitTest>
 			<includes>
 				<include>**/*Test.java</include>
 			</includes>
 			<resources>
 				<resource>
-					<directory>test/java</directory>
+					<directory>${basedir}/src/test</directory>
 					<includes>
 						<include>spring-hibernate.xml</include>
 						<include>hibernate.properties</include>

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project>
-	
 	<pomVersion>3</pomVersion>
-	
 	<extend>../../project.xml</extend>
-	
-	<name>Edia Sakai Create Site Pack</name>
+	<name>Edia Sakai ToolTemplate Pack</name>
 	<groupId>edia</groupId>
-	<id>edia-sakai-createsite-pack</id>
+	<id>edia-sakai-create-site-pack</id>
 	<currentVersion>${sakai.version}</currentVersion>
 	<organization>
 		<name>Edia</name>
@@ -22,9 +20,13 @@
 
 	<dependencies>
 
+		<!-- the components pack should include your dao and logic impl 
+			in the war bundle and the components.xml file 
+			(which is basically a spring-config file with a special name -->
+
 		<dependency>
 			<groupId>edia</groupId>
-			<artifactId>edia-sakai-createsite-impl</artifactId>
+			<artifactId>edia-sakai-create-site-impl</artifactId>
 			<version>${sakai.version}</version>
 			<properties>
 				<war.bundle>true</war.bundle>

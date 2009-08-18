@@ -12,7 +12,7 @@
 	<parent>
 		<artifactId>edia-sakai-create-site-base</artifactId>
 		<groupId>nl.edia</groupId>
-		<version>1.0.0</version>
+		<version>1.1.2</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	
@@ -30,22 +30,19 @@
 	
 	<dependencies>
 		
-		<!-- Spring dependencies. -->
+		<!-- Spring and Hibernate dependencies. -->
 		<dependency>
-			<groupId>${sakai.spring.groupId}</groupId>
-			<artifactId>${sakai.spring.artifactId}</artifactId>
-			<version>${sakai.spring.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
 		</dependency>
 		
 		<!-- our tool internal dependencies -->
 		<dependency>
 			<groupId>nl.edia</groupId>
 			<artifactId>edia-sakai-create-site-api</artifactId>
-			<version>${sakai.version}</version>
 		</dependency>
 		
 		<!-- Various Sakai dependencies -->
-
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-assignment-api</artifactId>
@@ -53,9 +50,7 @@
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-authz-api</artifactId>
-			<version>${sakai.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-content-api</artifactId>
@@ -66,25 +61,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-entity-api</artifactId>
-			<version>${sakai.version}</version>
+			<artifactId>sakai-site-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-site-api</artifactId>
-			<version>${sakai.version}</version>
+			<artifactId>sakai-tool-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-util-api</artifactId>
-			<version>${sakai.version}</version>
 		</dependency>
 
 	</dependencies>
 
-	<build>
-		<resources />
-		<sourceDirectory>src/java</sourceDirectory>
-		<testSourceDirectory>test/java</testSourceDirectory>
-	</build>
 </project>
