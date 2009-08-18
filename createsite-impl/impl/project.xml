@@ -3,9 +3,9 @@
 <project>
 	<pomVersion>3</pomVersion>
 	<extend>../../project.xml</extend>
-	<name>Edia Sakai ToolTemplate Impl</name>
+	<name>Edia Sakai Create Site Impl</name>
 	<groupId>edia</groupId>
-	<id>edia-sakai-tooltemplate-impl</id>
+	<id>edia-sakai-createsite-impl</id>
 	<currentVersion>${sakai.version}</currentVersion>
 	<organization>
 		<name>Edia</name>
@@ -20,21 +20,6 @@
 
 	<dependencies>
 
-		<!-- Spring and Hibernate dependencies. -->
-		<!-- 
-		<dependency>
-			<groupId>${sakai.hibernate.groupId}</groupId>
-			<artifactId>${sakai.hibernate.artifactId}</artifactId>
-			<version>${sakai.hibernate.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>${sakai.spring.groupId}</groupId>
-			<artifactId>${sakai.spring.artifactId}</artifactId>
-			<version>${sakai.spring.version}</version>
-		</dependency>
-		 -->
-		 
 		<!-- Edia utils package -->
 		<dependency>
 			<groupId>edia</groupId>
@@ -45,16 +30,28 @@
 		<!-- our tool internal dependencies -->
 		<dependency>
 			<groupId>edia</groupId>
-			<artifactId>edia-sakai-tooltemplate-api</artifactId>
+			<artifactId>edia-sakai-createsite-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
 
 		<!-- Various Sakai dependencies -->
+        <dependency>
+            <groupId>sakaiproject</groupId>
+            <artifactId>sakai-assignment-api</artifactId>
+            <version>${sakai.version}</version>
+        </dependency>
+
 		<dependency>
 			<groupId>sakaiproject</groupId>
 			<artifactId>sakai-authz-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
+
+        <dependency>
+            <groupId>sakaiproject</groupId>
+            <artifactId>sakai-content-api</artifactId>
+            <version>${sakai.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>sakaiproject</groupId>
@@ -64,16 +61,16 @@
 
 		<dependency>
 			<groupId>sakaiproject</groupId>
-			<artifactId>sakai-component-api</artifactId>
-			<version>${sakai.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>sakaiproject</groupId>
 			<artifactId>sakai-site-api</artifactId>
 			<version>${sakai.version}</version>
 		</dependency>
 		
+        <dependency>
+            <groupId>sakaiproject</groupId>
+            <artifactId>sakai-tool-api</artifactId>
+            <version>${sakai.version}</version>
+        </dependency>
+
 		<dependency>
 			<groupId>sakaiproject</groupId>
 			<artifactId>sakai-util-api</artifactId>

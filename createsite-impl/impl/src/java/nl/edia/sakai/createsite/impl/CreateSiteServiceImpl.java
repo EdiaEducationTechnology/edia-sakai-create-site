@@ -282,29 +282,14 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	}
 
 	/**
-	 * @return the siteService
-	 */
-	public SiteService getSiteService() {
-		return siteService;
-	}
-
-	/**
 	 * @param siteService the siteService to set
 	 */
 	public void setSiteService(SiteService siteService) {
 		this.siteService = siteService;
 	}
 
-	public ContentHostingService getContentHostingService() {
-		return contentHostingService;
-	}
-
 	public void setContentHostingService(ContentHostingService contentHostingService) {
 		this.contentHostingService = contentHostingService;
-	}
-
-	public List<EntityPostProcessor> getEntityPostProcessors() {
-		return entityPostProcessors;
 	}
 
 	public void setEntityPostProcessors(List<EntityPostProcessor> entityPostProcessors) {
