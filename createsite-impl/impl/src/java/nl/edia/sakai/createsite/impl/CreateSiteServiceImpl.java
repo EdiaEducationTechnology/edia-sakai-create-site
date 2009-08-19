@@ -56,6 +56,7 @@ import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.authz.api.SecurityAdvisor;
 import org.sakaiproject.authz.cover.SecurityService;
+import org.sakaiproject.content.api.ContentCollectionEdit;
 import org.sakaiproject.content.api.ContentHostingService;
 import org.sakaiproject.entity.api.EntityProducer;
 import org.sakaiproject.entity.api.EntityTransferrer;
@@ -63,6 +64,7 @@ import org.sakaiproject.entity.cover.EntityManager;
 import org.sakaiproject.exception.IdInvalidException;
 import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.exception.IdUsedException;
+import org.sakaiproject.exception.InconsistentException;
 import org.sakaiproject.exception.PermissionException;
 import org.sakaiproject.id.cover.IdManager;
 import org.sakaiproject.site.api.Site;
@@ -151,7 +153,10 @@ public class CreateSiteServiceImpl implements CreateSiteService {
                     	return SecurityAdvice.ALLOWED;
                     }
                     if (function.equals(AuthzGroupService.SECURE_ADD_AUTHZ_GROUP) && reference.endsWith(newId)) {
-                    	return SecurityAdvice.ALLOWED;
+                        return SecurityAdvice.ALLOWED;
+                    }
+                    if (function.equals(ContentHostingService.AUTH_RESOURCE_ADD) && reference.endsWith(newId)) {
+                        return SecurityAdvice.ALLOWED;
                     }
                     return SecurityAdvice.NOT_ALLOWED;
                 }
@@ -159,6 +164,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 			
 	    	Site templateSite = siteService.getSite(templateSiteId);
 			Site site = siteService.addSite(newId, templateSite);
+			createSiteCollection(site, options);
 			if (options.getNewSiteTitle() != null) {
 				site.setTitle(options.getNewSiteTitle());
 			}
@@ -170,6 +176,19 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 		finally {
 			SecurityService.popAdvisor();
 		}
+    }
+
+    protected void createSiteCollection(Site site, CopyOptions options) throws IdUsedException, IdInvalidException, PermissionException {
+            try {
+                String siteCollectionId = contentHostingService.getSiteCollection(site.getId());
+                ContentCollectionEdit collection;
+                collection = contentHostingService.addCollection(siteCollectionId);
+                collection.getPropertiesEdit().addProperty(collection.getProperties().getNamePropDisplayName(), options.getNewSiteTitle());
+                contentHostingService.commitCollection(collection);
+            } catch (InconsistentException e) {
+                // log
+                LOG.warn("Trouble creating site collection", e);
+            }
     }
 	
 	@SuppressWarnings("unchecked")
