@@ -5,7 +5,7 @@
 	<extend>../../project.xml</extend>
 	<name>Edia Sakai Create Site Pack</name>
 	<groupId>edia</groupId>
-	<id>edia-sakai-create-site-pack</id>
+	<id>edia-sakai-createsite-pack</id>
 	<currentVersion>${sakai.version}</currentVersion>
 	<organization>
 		<name>Edia</name>
