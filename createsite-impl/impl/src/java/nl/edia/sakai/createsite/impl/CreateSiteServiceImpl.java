@@ -47,6 +47,11 @@
  */
 package nl.edia.sakai.createsite.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import nl.edia.sakai.createsite.api.CopyOptions;
 import nl.edia.sakai.createsite.api.CreateSiteService;
 import nl.edia.sakai.createsite.api.EntityPostProcessor;
@@ -56,9 +61,12 @@ import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.authz.api.SecurityAdvisor;
 import org.sakaiproject.authz.cover.SecurityService;
+import org.sakaiproject.content.api.ContentCollectionEdit;
 import org.sakaiproject.content.api.ContentHostingService;
 import org.sakaiproject.entity.api.EntityProducer;
 import org.sakaiproject.entity.api.EntityTransferrer;
+import org.sakaiproject.entity.api.ResourceProperties;
+import org.sakaiproject.entity.api.ResourcePropertiesEdit;
 import org.sakaiproject.entity.cover.EntityManager;
 import org.sakaiproject.exception.IdInvalidException;
 import org.sakaiproject.exception.IdUnusedException;
@@ -71,11 +79,6 @@ import org.sakaiproject.site.api.SiteService;
 import org.sakaiproject.site.api.ToolConfiguration;
 import org.sakaiproject.site.api.SiteService.SortType;
 import org.sakaiproject.tool.api.Tool;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Class CreateSiteServiceImpl.
@@ -171,7 +174,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 			SecurityService.popAdvisor();
 		}
     }
-	
+    
 	@SuppressWarnings("unchecked")
 	private void copyToolContent(String newSiteId, Site templateSite, CopyOptions options, boolean bypassSecurity) {
 		// import tool content
@@ -201,10 +204,26 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 							if ((options.getContentToCopy() == null || options.getContentToCopy().contains(toolId)) &&
 									!(options.getContentToOmit() != null && options.getContentToOmit().contains(toolId)) ) {
     							if (toolId.equalsIgnoreCase("sakai.resources")) {
-    								// handle resource tool specially
-    								transferCopyEntities(toolId,
-    										contentHostingService.getSiteCollection(templateSite.getId()),
-    										contentHostingService.getSiteCollection(newSiteId), options);
+    								// handle resource tool specially: create the collection
+    								String newCollectionId = contentHostingService.getSiteCollection(newSiteId);
+									if (!contentHostingService.isCollection(newCollectionId)) {
+										ContentCollectionEdit collection;
+										try {
+											collection = contentHostingService.addCollection(newCollectionId);
+											if (options.getNewSiteTitle() != null) {
+												ResourcePropertiesEdit properties = collection.getPropertiesEdit();
+												properties.addProperty(ResourceProperties.PROP_DISPLAY_NAME, options.getNewSiteTitle());
+											}
+											contentHostingService.commitCollection(collection);
+										} 
+										catch (Exception e) {
+											LOG.warn("Can't create site collection.", e);
+										}
+									}
+									// then transfer the data.
+									transferCopyEntities(toolId,
+											contentHostingService.getSiteCollection(templateSite.getId()),
+											contentHostingService.getSiteCollection(newSiteId), options);
     							} 
     							else if (toolId.equalsIgnoreCase("sakai.iframe")) {
     								// do nothing. transferCopyEntities will end up adding new pages for each
