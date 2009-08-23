@@ -78,14 +78,6 @@ public class EditSiteController extends SimpleFormController implements Constant
 			site.setJoinable(false);
 		}
 		
-		// current user becomes maintainer
-		if (site.getMaintainRole() != null) {
-			site.addMember(SakaiUtils.getCurrentUserId(), site.getMaintainRole(), true, false);
-		}
-		else {
-			log.error("Can't make the current user maintainer of the new site: no maintainer role defined.");
-		}
-		
 		siteService.save(site);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
