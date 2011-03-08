@@ -4,6 +4,9 @@
 	<bean name="nl.edia.sakai.createsite.api.CreateSiteService" class="nl.edia.sakai.createsite.impl.CreateSiteServiceImpl">
 		<property name="siteService" ref="org.sakaiproject.site.api.SiteService"/>
 		<property name="contentHostingService" ref="org.sakaiproject.content.api.ContentHostingService"/>
+		<property name="entityManager" ref="org.sakaiproject.entity.api.EntityManager"/>
+		<property name="idManager" ref="org.sakaiproject.id.api.IdManager"/>
+		<property name="securityService" ref="org.sakaiproject.authz.api.SecurityService"/>
 		
 		<property name="entityPostProcessors">
 		  <list>

@@ -6,7 +6,6 @@ package nl.edia.sakai.createsite.tool.controllers;
 import nl.edia.sakai.createsite.api.CopyOptions;
 import nl.edia.sakai.createsite.api.CreateSiteService;
 import nl.edia.sakai.createsite.tool.forms.EditSiteForm;
-import nl.edia.sakai.tool.util.SakaiUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -101,9 +100,10 @@ public class EditSiteController extends SimpleFormController implements Constant
 		Site templateSite =  siteService.getSite(templateSiteId);
 		
 		EditSiteForm form = new EditSiteForm();
-		form.setTitle(templateSite.getTitle());
-		form.setShortDescription(templateSite.getShortDescription());
-		form.setDescription(templateSite.getDescription());
+		// Remove the term 'template'. This is for the community manager.
+		form.setTitle(templateSite.getTitle().replaceAll(" [Tt]emplate ", " "));
+		form.setShortDescription(templateSite.getShortDescription().replaceAll("The template ", "A "));
+		form.setDescription(templateSite.getDescription().replaceAll("The template ", "A "));
 		
 		return form;
 	}

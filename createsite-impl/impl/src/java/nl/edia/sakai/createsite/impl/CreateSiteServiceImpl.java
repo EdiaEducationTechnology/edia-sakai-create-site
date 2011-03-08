@@ -60,19 +60,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.authz.api.SecurityAdvisor;
-import org.sakaiproject.authz.cover.SecurityService;
+import org.sakaiproject.authz.api.SecurityService;
 import org.sakaiproject.content.api.ContentCollectionEdit;
 import org.sakaiproject.content.api.ContentHostingService;
+import org.sakaiproject.entity.api.EntityManager;
 import org.sakaiproject.entity.api.EntityProducer;
 import org.sakaiproject.entity.api.EntityTransferrer;
 import org.sakaiproject.entity.api.ResourceProperties;
 import org.sakaiproject.entity.api.ResourcePropertiesEdit;
-import org.sakaiproject.entity.cover.EntityManager;
 import org.sakaiproject.exception.IdInvalidException;
 import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.exception.IdUsedException;
 import org.sakaiproject.exception.PermissionException;
-import org.sakaiproject.id.cover.IdManager;
+import org.sakaiproject.id.api.IdManager;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SitePage;
 import org.sakaiproject.site.api.SiteService;
@@ -91,6 +91,10 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	private ContentHostingService contentHostingService;
 	private static Log LOG = LogFactory.getLog(CreateSiteServiceImpl.class);
 	private List<EntityPostProcessor> entityPostProcessors;
+	private EntityManager entityManager;
+	private IdManager idManager;
+	private SecurityService securityService;
+	
 
 	/**
 	 * 
@@ -101,7 +105,6 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	/**
 	 * @see nl.edia.sakai.createsite.api.CreateSiteService#listTemplateSites()
 	 */
-	@SuppressWarnings("unchecked")
 	public List<String> listTemplateSites(List<String> siteTypes) {
 		List<Site> templateSites = siteService.getSites(SiteService.SelectionType.ANY, null, null, null, SortType.TITLE_ASC, null);
 		List<String> siteIds = new ArrayList<String>(templateSites.size());
@@ -128,7 +131,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
      */
     public String createSiteFromTemplate(String templateSiteId, CopyOptions options) throws IdUnusedException, PermissionException {
         try {
-            return createSiteFromTemplate(IdManager.createUuid(), templateSiteId, options);
+            return createSiteFromTemplate(idManager.createUuid(), templateSiteId, options);
         }
         catch (IdUsedException e) {
             // not possible
@@ -147,10 +150,10 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 		try {
 			// Users of this tool can add sites, even if they do not have the proper permissions.
 			// TODO maybe create a privilege for using this tool?
-			SecurityService.pushAdvisor(new SecurityAdvisor() {
+			securityService.pushAdvisor(new SecurityAdvisor() {
                 public SecurityAdvice isAllowed(String userId, String function, String reference)
                 {
-                    if (function.equals(SiteService.SECURE_ADD_SITE) && reference.endsWith(newId)) {
+                    if ((function.equals(SiteService.SECURE_ADD_SITE) || function.equals(SiteService.SECURE_UPDATE_SITE)) && reference.endsWith(newId)) {
                     	return SecurityAdvice.ALLOWED;
                     }
                     if (function.equals(AuthzGroupService.SECURE_ADD_AUTHZ_GROUP) && reference.endsWith(newId)) {
@@ -171,11 +174,10 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 			
 		}
 		finally {
-			SecurityService.popAdvisor();
+			securityService.popAdvisor();
 		}
     }
     
-	@SuppressWarnings("unchecked")
 	private void copyToolContent(String newSiteId, Site templateSite, CopyOptions options, boolean bypassSecurity) {
 		// import tool content
 		
@@ -183,7 +185,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 		{
 			// importing from template, bypass the permission checking:
 			// temporarily allow the user to read and write from assignments (asn.revise permission)
-	        SecurityService.pushAdvisor(new SecurityAdvisor() {
+	        securityService.pushAdvisor(new SecurityAdvisor() {
                 public SecurityAdvice isAllowed(String userId, String function, String reference)
                 {
                     return SecurityAdvice.ALLOWED;
@@ -248,7 +250,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 
 		if (bypassSecurity)
 		{
-			SecurityService.popAdvisor();
+			securityService.popAdvisor();
 		}
 	}
 	
@@ -267,7 +269,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	private void transferCopyEntities(String toolId, String fromContext, String toContext, CopyOptions options) {
 		// offer to all EntityProducers
 		boolean copySucceeded = false;
-		for (Iterator<EntityProducer> i = EntityManager.getEntityProducers().iterator(); i.hasNext();) {
+		for (Iterator<EntityProducer> i = entityManager.getEntityProducers().iterator(); i.hasNext();) {
 			EntityProducer ep = i.next();
 			if (ep instanceof EntityTransferrer) {
 				try {
@@ -329,5 +331,27 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	public void setEntityPostProcessors(List<EntityPostProcessor> entityPostProcessors) {
 		this.entityPostProcessors = entityPostProcessors;
 	}
+
+	/**
+	 * @param entityManager the entityManager to set
+	 */
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+	/**
+	 * @param idManager the idManager to set
+	 */
+	public void setIdManager(IdManager idManager) {
+		this.idManager = idManager;
+	}
+
+	/**
+	 * @param securityService the securityService to set
+	 */
+	public void setSecurityService(SecurityService securityService) {
+		this.securityService = securityService;
+	}
+
 
 }

@@ -12,7 +12,7 @@
 	<parent>
 		<artifactId>edia-sakai-create-site-base</artifactId>
 		<groupId>nl.edia</groupId>
-		<version>1.1.3</version>
+		<version>1.2.0</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
@@ -40,7 +40,7 @@
 		<!-- Spring dependencies. -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
+			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		
 		<!-- our tool internal dependencies -->
@@ -51,51 +51,19 @@
 		
 		<!-- Various Sakai dependencies -->
 		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-authz-api</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-content-api</artifactId>
+			<groupId>org.sakaiproject.kernel</groupId>
+			<artifactId>sakai-kernel-api</artifactId>
 		</dependency>
 		
 		<!-- this is needed to use the ServerConfigurationService -->
 		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-component-api</artifactId>
+			<groupId>org.sakaiproject.kernel</groupId>
+			<artifactId>sakai-component-manager</artifactId>
 		</dependency>
 		
 		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-entity-api</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-site-api</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-tool-api</artifactId>
-			<version>${sakai.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-user-api</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-util</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.sakaiproject</groupId>
-			<artifactId>sakai-util-api</artifactId>
+			<groupId>org.sakaiproject.kernel</groupId>
+			<artifactId>sakai-kernel-util</artifactId>
 		</dependency>
 		
 		<!-- Commons JARS put in shared/lib by Sakai -->
