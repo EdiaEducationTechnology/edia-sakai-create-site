@@ -81,6 +81,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>

@@ -23,7 +23,10 @@
 		<module>createsite-impl/impl</module>
 		<module>createsite-impl/pack</module>
 		<module>createsite-tool/tool</module>
+		<!-- Use only for building against Sakai 2.5 -->
+		<!--
 		<module>createsite-shared-deploy</module>
+		-->
 	</modules>
 	
 	<dependencyManagement>
