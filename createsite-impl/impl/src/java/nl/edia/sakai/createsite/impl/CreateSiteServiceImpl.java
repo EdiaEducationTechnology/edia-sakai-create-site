@@ -159,7 +159,7 @@ public class CreateSiteServiceImpl implements CreateSiteService {
                     if (function.equals(AuthzGroupService.SECURE_ADD_AUTHZ_GROUP) && reference.endsWith(newId)) {
                     	return SecurityAdvice.ALLOWED;
                     }
-                    return SecurityAdvice.NOT_ALLOWED;
+                    return SecurityAdvice.PASS;
                 }
             });
 			
