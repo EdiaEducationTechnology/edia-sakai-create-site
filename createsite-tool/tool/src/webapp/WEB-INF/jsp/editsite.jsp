@@ -97,7 +97,7 @@
       <br/>
       
       <input type="submit" name="submit" value="<s:message code="page.editsite.submit.label"/>"/> &nbsp;&nbsp;
-      <input type="button" name="cancel" value="<s:message code="page.editsite.cancel.label"/>"/>
+      <input type="button" name="cancel" value="<s:message code="page.editsite.cancel.label"/>" onclick="window.location.href='selecttemplate.spring'"/>
 
     </form>
   
