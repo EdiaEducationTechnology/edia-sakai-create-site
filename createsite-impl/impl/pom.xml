@@ -2,25 +2,23 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 		xmlns="http://maven.apache.org/POM/4.0.0" 
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 	
 	<name>Edia Sakai Create Site Impl</name>
 	<groupId>nl.edia</groupId>
 	<artifactId>edia-sakai-create-site-impl</artifactId>
-
-	<parent>
-		<artifactId>edia-sakai-create-site-base</artifactId>
-		<groupId>nl.edia</groupId>
-		<version>4.0.0</version>
-		<relativePath>../../pom.xml</relativePath>
-	</parent>
-	
 	<organization>
 		<name>Edia</name>
 		<url>http://www.edia.nl/</url>
 	</organization>
 	<inceptionYear>2008</inceptionYear>
+
+	<parent>
+		<artifactId>edia-sakai-create-site-base</artifactId>
+		<groupId>nl.edia</groupId>
+		<version>4.0.1</version>
+	</parent>
+	
 	
 	<!-- logic impl should be deployed as a jar and included in the pack, not to shared -->
 	<packaging>jar</packaging>

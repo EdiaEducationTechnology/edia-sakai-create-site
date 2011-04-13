@@ -8,19 +8,18 @@
 	<name>Edia Sakai Create Site Tool</name>
 	<groupId>nl.edia</groupId>
 	<artifactId>edia-sakai-create-site-tool</artifactId>
-
-	<parent>
-		<artifactId>edia-sakai-create-site-base</artifactId>
-		<groupId>nl.edia</groupId>
-		<version>4.0.0</version>
-		<relativePath>../../pom.xml</relativePath>
-	</parent>
-
 	<organization>
 		<name>Edia</name>
 		<url>http://www.edia.nl/</url>
 	</organization>
 	<inceptionYear>2008</inceptionYear>
+
+	<parent>
+		<artifactId>edia-sakai-create-site-base</artifactId>
+		<groupId>nl.edia</groupId>
+		<version>4.0.1</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
 
 	<packaging>war</packaging>
 	
