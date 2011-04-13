@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  <import resource="controllers.xml" />
+  <import resource="interceptors.xml" />
+  <bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="mappings">
+      <props>
+        <prop key="selecttemplate.spring">selectTemplateController</prop>
+        <prop key="editsite.spring">editSiteController</prop>
+        <prop key="viewsite.spring">viewSiteController</prop>
+      </props>
+    </property>
+    <property name="defaultHandler" value="selectTemplateController"/>
+  </bean>
+
+  <!-- 
+    The internal resource resolver is by default the last in the resolver chain.
+   -->
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix">
+      <value>WEB-INF/jsp/</value>
+    </property>
+    <property name="suffix">
+      <value>.jsp</value>
+    </property>
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+  </bean>
+
+  <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basename" value="Messages-CreateSite"/>
+    <property name="useCodeAsDefaultMessage" value="true"/>
+  </bean>
+  
+</beans>

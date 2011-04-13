@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<registration>
+
+	<tool 
+		id="edia.sakai.createsite" 
+		title="Create Site Tool" 
+		description="Create new sites based on a site template." 
+		accessSecurity="tool">
+
+		<!-- Configure categories -->
+		<category name="course" />
+		<category name="project" />
+
+		<!-- Configure title bar for portal -->
+		<configuration name="reset.button" value="true" />
+		<configuration name="help.button" value="true" />
+
+		<configuration name="templateTypes" value="" />
+
+	</tool>
+</registration>
