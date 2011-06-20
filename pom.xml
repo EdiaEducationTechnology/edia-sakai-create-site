@@ -7,7 +7,7 @@
 	<name>Edia Sakai Create Site Base</name>
 	<groupId>nl.edia</groupId>
 	<artifactId>edia-sakai-create-site-base</artifactId>
-	<version>4.1.0</version>
+	<version>4.1.1</version>
 	<parent>
 		<artifactId>master</artifactId>
 		<groupId>org.sakaiproject</groupId>
