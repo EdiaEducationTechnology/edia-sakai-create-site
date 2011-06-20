@@ -101,9 +101,15 @@ public class EditSiteController extends SimpleFormController implements Constant
 		
 		EditSiteForm form = new EditSiteForm();
 		// Remove the term 'template'. This is for the community manager.
-		form.setTitle(templateSite.getTitle().replaceAll(" [Tt]emplate ", " "));
-		form.setShortDescription(templateSite.getShortDescription().replaceAll("The template ", "A "));
-		form.setDescription(templateSite.getDescription().replaceAll("The template ", "A "));
+		if (templateSite.getTitle() != null) {
+			form.setTitle(templateSite.getTitle().replaceAll(" [Tt]emplate ", " "));
+		}
+		if (templateSite.getShortDescription() != null) {
+			form.setShortDescription(templateSite.getShortDescription().replaceAll("The template ", "A "));
+		}
+		if (templateSite.getDescription() != null) {
+			form.setDescription(templateSite.getDescription().replaceAll("The template ", "A "));
+		}
 		
 		return form;
 	}
