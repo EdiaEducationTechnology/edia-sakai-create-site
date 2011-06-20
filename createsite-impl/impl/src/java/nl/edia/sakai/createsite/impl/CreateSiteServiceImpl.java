@@ -106,12 +106,21 @@ public class CreateSiteServiceImpl implements CreateSiteService {
 	 * @see nl.edia.sakai.createsite.api.CreateSiteService#listTemplateSites()
 	 */
 	public List<String> listTemplateSites(List<String> siteTypes) {
-		List<Site> templateSites = siteService.getSites(SiteService.SelectionType.ANY, null, null, null, SortType.TITLE_ASC, null);
+		// Pass site types into the query if it is not null and not empty 
+		Object ofType = null;
+		if (siteTypes != null && siteTypes.size() == 1) {
+			ofType = siteTypes.get(0);
+		}
+		else if (siteTypes != null && siteTypes.size() > 1) {
+			ofType = siteTypes;
+		}
+		
+		// MvH Despite what the documentation says, you can't use criteria to search in the id. It only searches in title.
+		List<Site> templateSites = siteService.getSites(SiteService.SelectionType.ANY, ofType, TEMPLATE_SITE_PREFIX, null, SortType.TITLE_ASC, null);
 		List<String> siteIds = new ArrayList<String>(templateSites.size());
 		
 		for (Site site : templateSites) {
-			if (site.getId().startsWith(TEMPLATE_SITE_PREFIX) && site.isPublished() &&
-					(siteTypes == null || siteTypes.isEmpty() || siteTypes.contains(site.getType()))) {				
+			if (site.getId().startsWith(TEMPLATE_SITE_PREFIX) && site.isPublished()) {				
 				siteIds.add(site.getId());
 			}
 		}

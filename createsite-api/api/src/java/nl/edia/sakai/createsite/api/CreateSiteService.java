@@ -68,7 +68,10 @@ public interface CreateSiteService {
 	 * Return a list of sites that are considered template sites.
 	 * The tool can either be configured with a set of template site ids
 	 * or with a set of template site types. In the latter case, this method
-	 * is used to retrieve the actual template site ids.
+	 * is used to retrieve the actual template site ids. All sites of the given 
+	 * type that have an id that starts with 'template' (case sensitive) and 
+	 * that have the word 'template' in their title (not case sensitive) are 
+	 * considered templates. 
 	 *  
 	 * @param a list of site types to consider, or null or empty list for all types.
 	 * @return a List of site ids.
