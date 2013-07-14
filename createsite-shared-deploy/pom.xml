@@ -2,39 +2,29 @@
 <!--
 	Use this only for building against Sakai 2.5.
 -->
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xmlns="http://maven.apache.org/POM/4.0.0" 
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<name>Edia Sakai Create Site Shared Deployment</name>
-	<groupId>nl.edia</groupId>
-	<artifactId>sakai-create-site-shared-deploy</artifactId>
-	<organization>
-		<name>Edia</name>
-		<url>http://www.edia.nl/</url>
-	</organization>
-	<inceptionYear>2008</inceptionYear>
-
-	<parent>
-		<artifactId>edia-sakai-create-site-base</artifactId>
-		<groupId>nl.edia</groupId>
-		<version>4.1.2</version>
-	</parent>
-
-
-	<packaging>pom</packaging>
-	<properties>
-		<deploy.target>shared</deploy.target>
-	</properties>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-
-	</dependencies>
-
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>Edia Sakai Create Site Shared Deployment</name>
+  <groupId>nl.edia</groupId>
+  <artifactId>sakai-create-site-shared-deploy</artifactId>
+  <organization>
+    <name>Edia</name>
+    <url>http://www.edia.nl/</url>
+  </organization>
+  <inceptionYear>2008</inceptionYear>
+  <parent>
+    <artifactId>edia-sakai-create-site-base</artifactId>
+    <groupId>nl.edia</groupId>
+    <version>4.1.2</version>
+  </parent>
+  <packaging>pom</packaging>
+  <properties>
+    <deploy.target>shared</deploy.target>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+  </dependencies>
 </project>
