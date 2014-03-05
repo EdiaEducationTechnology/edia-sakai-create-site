@@ -8,7 +8,7 @@
   <parent>
     <artifactId>master</artifactId>
     <groupId>org.sakaiproject</groupId>
-    <version>2.9.0</version>
+    <version>2.9.3</version>
   </parent>
   <packaging>pom</packaging>
   <modules>
@@ -85,4 +85,38 @@
     <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/trunk</developerConnection>
     <url>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/trunk</url>
   </scm>
+  <distributionManagement>
+    <repository>
+      <id>public</id>
+      <url>http://archiva.edia.nl/archiva/repository/public/</url>
+    </repository>
+    <snapshotRepository>
+      <id>public-snapshots</id>
+      <url>http://archiva.edia.nl/archiva/repository/public-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <repositories>
+    <repository>
+      <id>public</id>
+      <name>Edia Public Archiva Repository</name>
+      <url>http://archiva.edia.nl/archiva/repository/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>public-snapshots</id>
+      <name>Edia Public Archiva Snapshot Repository</name>
+      <url>http://archiva.edia.nl/archiva/repository/public-snapshots/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>
