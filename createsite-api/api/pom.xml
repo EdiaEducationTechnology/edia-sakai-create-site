@@ -12,7 +12,7 @@
   <parent>
     <artifactId>edia-sakai-create-site-base</artifactId>
     <groupId>nl.edia</groupId>
-    <version>4.2.2-SNAPSHOT</version>
+    <version>4.2.2</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <!-- you must deploy your model to shared or it will be inaccessible by Hibernate -->

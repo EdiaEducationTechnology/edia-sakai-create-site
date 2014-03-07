@@ -12,7 +12,7 @@
   <parent>
     <artifactId>edia-sakai-create-site-base</artifactId>
     <groupId>nl.edia</groupId>
-    <version>4.2.2-SNAPSHOT</version>
+    <version>4.2.2</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <!-- logic impl should be deployed as a jar and included in the pack, not to shared -->

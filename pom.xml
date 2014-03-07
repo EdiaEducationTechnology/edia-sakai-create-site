@@ -4,7 +4,7 @@
   <name>Edia Sakai Create Site Base</name>
   <groupId>nl.edia</groupId>
   <artifactId>edia-sakai-create-site-base</artifactId>
-  <version>4.2.2-SNAPSHOT</version>
+  <version>4.2.2</version>
   <parent>
     <artifactId>master</artifactId>
     <groupId>org.sakaiproject</groupId>
@@ -26,13 +26,13 @@
       <dependency>
         <groupId>nl.edia</groupId>
         <artifactId>edia-sakai-create-site-api</artifactId>
-        <version>4.2.2-SNAPSHOT</version>
+        <version>4.2.2</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>nl.edia</groupId>
         <artifactId>edia-sakai-create-site-impl</artifactId>
-        <version>4.2.2-SNAPSHOT</version>
+        <version>4.2.2</version>
       </dependency>
       <dependency>
         <groupId>nl.edia</groupId>
@@ -81,9 +81,9 @@
     </plugins>
   </build>
   <scm>
-    <connection>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/trunk</connection>
-    <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/trunk</developerConnection>
-    <url>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/trunk</url>
+    <connection>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/tags/4.2.2</connection>
+    <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/tags/4.2.2</developerConnection>
+    <url>scm:svn:https://source.sakaiproject.org/contrib/edia/create-site/tags/4.2.2</url>
   </scm>
   <distributionManagement>
     <repository>
