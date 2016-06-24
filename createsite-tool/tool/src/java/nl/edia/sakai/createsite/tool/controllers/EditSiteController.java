@@ -6,31 +6,45 @@ package nl.edia.sakai.createsite.tool.controllers;
 import nl.edia.sakai.createsite.api.CopyOptions;
 import nl.edia.sakai.createsite.api.CreateSiteService;
 import nl.edia.sakai.createsite.tool.forms.EditSiteForm;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static nl.edia.sakai.createsite.tool.controllers.Constants.PARAM_SITE_ID;
+import static nl.edia.sakai.createsite.tool.controllers.Constants.PARAM_TEMPLATE_SITE;
+import static nl.edia.sakai.createsite.tool.controllers.Constants.PARAM_TEMPLATE_SITE_ID;
 
 /**
  * @author Maarten van Hoof
  *
  */
-public class EditSiteController extends SimpleFormController implements Constants {
-	
+@Controller
+@RequestMapping("/editsite.spring")
+public class EditSiteController {
+
+	@Autowired
 	private SiteService siteService;
+	@Autowired
 	private CreateSiteService createSiteService;
+
 	private static Log log = LogFactory.getLog(EditSiteController.class);
 
 	/**
@@ -39,14 +53,13 @@ public class EditSiteController extends SimpleFormController implements Constant
 	public EditSiteController() {
 	}
 
-	@Override
-	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+	@InitBinder
+	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
 		binder.setRequiredFields(new String[] {PARAM_TEMPLATE_SITE_ID, "title"});
 	}
 
-	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
-		EditSiteForm form = (EditSiteForm)command;
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView onSubmit(HttpServletRequest request, @ModelAttribute("command") EditSiteForm form, SessionStatus status) throws Exception {
 		String templateSiteId = request.getParameter(PARAM_TEMPLATE_SITE_ID);
 		
 		if (log.isDebugEnabled()) {
@@ -81,21 +94,20 @@ public class EditSiteController extends SimpleFormController implements Constant
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put(PARAM_SITE_ID, siteId);
-		return new ModelAndView(getSuccessView(), model);
+		status.setComplete();
+		return  new ModelAndView("redirect:viewsite.spring", model);
 	}
 
-	@Override
-	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
+	@ModelAttribute(PARAM_TEMPLATE_SITE)
+	protected Site getTemplateSite(HttpServletRequest request) throws Exception {
 		String templateSiteId = request.getParameter(PARAM_TEMPLATE_SITE_ID);
 		Site templateSite =  siteService.getSite(templateSiteId);
 		
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(PARAM_TEMPLATE_SITE, templateSite);
-		return model;		
+		return templateSite;
 	}
 
-	@Override
-	protected EditSiteForm formBackingObject(HttpServletRequest request) throws Exception {
+	@RequestMapping(method = RequestMethod.GET)
+	protected String formBackingObject(HttpServletRequest request, ModelMap model) throws Exception {
 		String templateSiteId = request.getParameter(PARAM_TEMPLATE_SITE_ID);
 		Site templateSite =  siteService.getSite(templateSiteId);
 		
@@ -110,8 +122,10 @@ public class EditSiteController extends SimpleFormController implements Constant
 		if (templateSite.getDescription() != null) {
 			form.setDescription(templateSite.getDescription().replaceAll("The template ", "A "));
 		}
+
+		model.put("command", form);
 		
-		return form;
+		return "editsite";
 	}
 
 	public void setCreateSiteService(CreateSiteService createSiteService) {

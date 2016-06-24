@@ -6,9 +6,9 @@
   <artifactId>edia-sakai-create-site-base</artifactId>
   <version>4.2.3-SNAPSHOT</version>
   <parent>
-    <artifactId>master</artifactId>
     <groupId>org.sakaiproject</groupId>
-    <version>2.9.3</version>
+    <artifactId>master</artifactId>
+    <version>11-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
   <modules>
@@ -38,11 +38,6 @@
         <groupId>nl.edia</groupId>
         <artifactId>edia-sakai-utils</artifactId>
         <version>1.4.1</version>
-      </dependency>
-      <dependency>
-        <groupId>taglibs</groupId>
-        <artifactId>standard</artifactId>
-        <version>1.1.2</version>
       </dependency>
       <dependency>
         <groupId>net.sf.opencsv</groupId>

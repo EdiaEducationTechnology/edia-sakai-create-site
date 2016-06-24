@@ -6,43 +6,55 @@ package nl.edia.sakai.createsite.tool.controllers;
 import nl.edia.sakai.createsite.api.CreateSiteService;
 import nl.edia.sakai.createsite.tool.forms.SelectTemplateForm;
 import nl.edia.sakai.tool.util.SakaiUtils;
-
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static nl.edia.sakai.createsite.tool.controllers.Constants.CONFIG_TEMPLATE_IDS;
+import static nl.edia.sakai.createsite.tool.controllers.Constants.CONFIG_TEMPLATE_TYPES;
+import static nl.edia.sakai.createsite.tool.controllers.Constants.PARAM_TEMPLATE_SITES;
+import static nl.edia.sakai.createsite.tool.controllers.Constants.PARAM_TEMPLATE_SITE_ID;
 
 /**
- * @author Maarten van Hoof
  *
  */
-public class SelectTemplateController extends SimpleFormController implements Constants {
-	
+
+@Controller
+@RequestMapping("selecttemplate.spring")
+public class SelectTemplateController {
+
+	@Autowired
 	private CreateSiteService createSiteService;
+
+	@Autowired
 	private SiteService siteService;
 
-	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView onSubmit(SelectTemplateForm form) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 
-		SelectTemplateForm form = (SelectTemplateForm)command;
 		model.put(PARAM_TEMPLATE_SITE_ID, form.getTemplateSiteId());
 		
-		return new ModelAndView(getSuccessView(), model);
+		return new ModelAndView("redirect:editsite.spring", model);
 	}
 
-	@Override
-	protected Map<String, Object> referenceData(HttpServletRequest request) throws Exception {
+	@ModelAttribute(PARAM_TEMPLATE_SITES)
+	public List<Site> referenceData(HttpServletRequest request) throws Exception {
 		// if templates are defined, use these.
 		List<String> templateSiteIds = getTemplateIds();
 		if (templateSiteIds == null) {
@@ -55,10 +67,7 @@ public class SelectTemplateController extends SimpleFormController implements Co
 			templateSites.add(siteService.getSite(siteId));
 		}
 		
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(PARAM_TEMPLATE_SITES, templateSites);
-		
-		return model;
+		return templateSites;
 	}
 	
 	/**
@@ -96,27 +105,10 @@ public class SelectTemplateController extends SimpleFormController implements Co
 		return templateTypes;
 	}
 
-	@Override
-	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		return new SelectTemplateForm();
+	@RequestMapping(method = RequestMethod.GET)
+	public String formBackingObject(HttpServletRequest request, ModelMap model) throws Exception {
+		model.put("command", new SelectTemplateForm());
+		return "selecttemplate";
 	}
-
-	public CreateSiteService getCreateSiteService() {
-		return createSiteService;
-	}
-
-	public void setCreateSiteService(CreateSiteService createSiteService) {
-		this.createSiteService = createSiteService;
-	}
-
-	public SiteService getSiteService() {
-		return siteService;
-	}
-
-	public void setSiteService(SiteService siteService) {
-		this.siteService = siteService;
-	}
-	
-	
 
 }

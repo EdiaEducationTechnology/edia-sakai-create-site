@@ -24,7 +24,7 @@
     <!-- Spring and Hibernate dependencies. -->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring</artifactId>
+      <artifactId>spring-context</artifactId>
     </dependency>
     <!-- our tool internal dependencies -->
     <dependency>
